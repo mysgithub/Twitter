@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Simple Tweets</string>
+    <string name="login_label">Connect to Twitter</string>
+    <string name="title_activity_timeline">twitter</string>
+    <string name="title_activity_tweetdetail">twitter</string>
+    <string name="cancel">Cancel</string>
+    <string name="compose">Compose</string>
+    <string name="char_count">140</string>
+    <string name="btn_tweet">Tweet</string>
+    <string name="rel_time">8m</string>
+    <string name="twitter">Twitter</string>
+    <string name="tweet">Tweet</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="hint_compose">Tweet Me!!!</string>
+    <string name="screen_name">Screen Name</string>
+
+</resources>

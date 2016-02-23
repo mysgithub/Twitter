@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#57ADEE</color>
+    <color name="colorPrimaryDark">#1C6399</color>
+    <color name="colorAccent">#57ADEE</color>
+    <!-- Some Colors for Simple Tweet App -->
+    <color name="colorLoginScreen">#FFFFFF</color>
+</resources>
