@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.codepath.apps.simpletweets">
+    package="com.codepath.apps.twitter">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -11,7 +11,7 @@
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
 
     <application
-        android:name=".TwitterApplication"
+        android:name="com.codepath.apps.twitter.TwitterApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -24,7 +24,7 @@
             android:value="1" />
 
         <activity
-            android:name=".activities.LoginActivity"
+            android:name="com.codepath.apps.twitter.activities.LoginActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -44,16 +44,16 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.TimelineActivity"
+            android:name="com.codepath.apps.twitter.activities.TimelineActivity"
             android:label="@string/title_activity_timeline"
             android:launchMode="singleTop"></activity>
         <activity
-            android:name=".activities.TweetDetailActivity"
+            android:name="com.codepath.apps.twitter.activities.TweetDetailActivity"
             android:label="@string/title_activity_tweetdetail"
-            android:parentActivityName=".activities.TimelineActivity">
+            android:parentActivityName="com.codepath.apps.twitter.activities.TimelineActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.TimelineActivity" />
+                android:value="com.codepath.apps.twitter.activities.TimelineActivity" />
         </activity>
     </application>
 

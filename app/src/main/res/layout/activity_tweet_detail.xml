@@ -7,7 +7,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="10dp"
     tools:ignore="MissingPrefix"
-    tools:context="com.codepath.apps.simpletweets.activities.TweetDetailActivity">
+    tools:context="com.codepath.apps.twitter.activities.TweetDetailActivity">
 
     <com.makeramen.roundedimageview.RoundedImageView
         xmlns:app="http://schemas.android.com/apk/res-auto"
