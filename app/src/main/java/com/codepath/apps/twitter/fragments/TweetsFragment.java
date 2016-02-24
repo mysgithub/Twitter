@@ -7,26 +7,18 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.codepath.apps.twitter.R;
-import com.codepath.apps.twitter.TwitterApplication;
 import com.codepath.apps.twitter.activities.TweetDetailActivity;
 import com.codepath.apps.twitter.adapters.EndlessRecyclerViewScrollListener;
 import com.codepath.apps.twitter.adapters.TweetsRecyclerViewAdapter;
 import com.codepath.apps.twitter.interfaces.OnTweetPostListener;
 import com.codepath.apps.twitter.models.Tweet;
-import com.codepath.apps.twitter.network.TwitterClient;
 import com.codepath.apps.twitter.utils.ItemClickSupport;
 import com.codepath.apps.twitter.utils.TwitterUtil;
-import com.loopj.android.http.JsonHttpResponseHandler;
-
-import org.apache.http.Header;
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,9 +34,9 @@ public class TweetsFragment extends Fragment implements OnTweetPostListener {
   @Bind(R.id.swipeContainer) SwipeRefreshLayout swipeContainer;
   @Bind(R.id.rvTweets) RecyclerView rvTweets;
 
-  private ArrayList<Tweet> tweets;
-  private TweetsRecyclerViewAdapter tweetsRecyclerViewAdapter;
-  private TwitterClient client;
+  protected ArrayList<Tweet> tweets;
+  protected TweetsRecyclerViewAdapter tweetsRecyclerViewAdapter;
+
 
   @Nullable
   @Override
@@ -60,9 +52,6 @@ public class TweetsFragment extends Fragment implements OnTweetPostListener {
 
     // Item click support
     setupItemClick();
-
-    // Async Client
-    client = TwitterApplication.getRestClient();
 
 
     return view;
@@ -105,12 +94,16 @@ public class TweetsFragment extends Fragment implements OnTweetPostListener {
       public void onLoadMore(int page, int totalItemsCount) {
         if (TwitterUtil.isInternetAvailable()) {
           long maxId = tweets.get(tweets.size() - 1).getUid() - 1; // -1 so that duplicate will not appear..
-          client.getHomeTimeline(mJsonHttpResponseHandler, maxId);
+          getTweets(maxId);
         } else {
           getStoredTweets(page);
         }
       }
     });
+  }
+
+  protected void getTweets(long maxId){
+    // Override this...
   }
 
   /**
@@ -141,7 +134,7 @@ public class TweetsFragment extends Fragment implements OnTweetPostListener {
         // Clear Old Items
         tweetsRecyclerViewAdapter.clear();
         // Get New
-        client.getHomeTimeline(mJsonHttpResponseHandler, 0);
+        getTweets(0);
       }else{
         //Toast.makeText(TimelineActivity.this, "Unable to connect to twitter.com", Toast.LENGTH_LONG).show();
         swipeContainer.setRefreshing(false);
@@ -164,42 +157,6 @@ public class TweetsFragment extends Fragment implements OnTweetPostListener {
   };
 
 
-  public final JsonHttpResponseHandler mJsonHttpResponseHandler = new JsonHttpResponseHandler() {
-    @Override
-    public void onStart() {
-      Log.d("DEBUG", "Request: " + super.getRequestURI().toString());
-    }
 
-    @Override
-    public void onFinish() {
-      super.onFinish();
-      //Progress Bar
-      // Swipe Refreshing
-      swipeContainer.setRefreshing(false);
-    }
-
-    @Override
-    public void onSuccess(int statusCode, Header[] headers, JSONArray jsonArray) {
-      Log.d("DEBUG", "Resposne: " + jsonArray.toString());
-
-      int curSize = tweetsRecyclerViewAdapter.getItemCount();
-      ArrayList<Tweet> arrayList = Tweet.fromJSONArray(jsonArray);
-      tweets.addAll(arrayList);
-
-      // TODO: Remove later
-      Log.d("DEBUG", "curSize: " + curSize);
-      Log.d("DEBUG", "tweets.size: " + tweets.size());
-      Log.d("DEBUG", "arrayList.size: " + arrayList.size());
-
-      tweetsRecyclerViewAdapter.notifyItemRangeInserted(curSize, arrayList.size());
-    }
-
-    @Override
-    public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-      Log.d("Failed2: ", "" + statusCode);
-      Log.d("Error : ", "" + throwable);
-      Log.d("Exception:", errorResponse.toString());
-    }
-  };
 
 }
