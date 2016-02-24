@@ -14,9 +14,6 @@ import android.widget.Toast;
 
 import com.codepath.apps.twitter.R;
 import com.codepath.apps.twitter.fragments.ComposeTweetDialog;
-import com.codepath.apps.twitter.fragments.TweetsFragment;
-import com.codepath.apps.twitter.interfaces.OnTweetPostListener;
-import com.codepath.apps.twitter.models.Tweet;
 import com.codepath.apps.twitter.utils.TwitterUtil;
 
 import butterknife.Bind;
@@ -24,9 +21,7 @@ import butterknife.ButterKnife;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 
-public class TimelineActivity extends AppCompatActivity implements OnTweetPostListener {
-
-  private TweetsFragment fragmentTweets;
+public class TimelineActivity extends AppCompatActivity {
 
   @Bind(R.id.fab) FloatingActionButton fab;
 
@@ -42,21 +37,6 @@ public class TimelineActivity extends AppCompatActivity implements OnTweetPostLi
     // Floating Action Button
     setupFloatingActionButton();
 
-    // Fragment
-    if(savedInstanceState == null){
-      fragmentTweets = (TweetsFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_timeline);
-    }
-  }
-
-  private void setupFloatingActionButton() {
-    fab.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View view) {
-        /*Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show();*/
-        showComposeTweetDialog();
-      }
-    });
   }
 
   @Override
@@ -87,8 +67,7 @@ public class TimelineActivity extends AppCompatActivity implements OnTweetPostLi
   }
 
 
-
-  public void showComposeTweetDialog(){
+  private void showComposeTweetDialog(){
       if(TwitterUtil.isInternetAvailable()) {
           FragmentManager fragmentManager = getSupportFragmentManager();
           ComposeTweetDialog dialog = ComposeTweetDialog.newInstance();
@@ -99,7 +78,7 @@ public class TimelineActivity extends AppCompatActivity implements OnTweetPostLi
       }
   }
 
-  public void showTwitterIcon(){
+  private void showTwitterIcon(){
     ActionBar actionBar = getSupportActionBar();
     if(actionBar != null){
       actionBar.setDisplayShowHomeEnabled(true);
@@ -108,19 +87,16 @@ public class TimelineActivity extends AppCompatActivity implements OnTweetPostLi
     }
   }
 
-  @Override
-  public void onTweetPost(Tweet tweet) {
-    // Add Tweet in the beginning of list
-    fragmentTweets.onTweetPost(tweet);
+  private void setupFloatingActionButton() {
+    fab.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View view) {
+        /*Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show();*/
+        showComposeTweetDialog();
+      }
+    });
   }
-
-
-
-
-
-
-
-
 
 }
 

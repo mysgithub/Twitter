@@ -17,6 +17,7 @@ import com.codepath.apps.twitter.TwitterApplication;
 import com.codepath.apps.twitter.activities.TweetDetailActivity;
 import com.codepath.apps.twitter.adapters.EndlessRecyclerViewScrollListener;
 import com.codepath.apps.twitter.adapters.TweetsRecyclerViewAdapter;
+import com.codepath.apps.twitter.interfaces.OnTweetPostListener;
 import com.codepath.apps.twitter.models.Tweet;
 import com.codepath.apps.twitter.network.TwitterClient;
 import com.codepath.apps.twitter.utils.ItemClickSupport;
@@ -36,7 +37,7 @@ import butterknife.ButterKnife;
 /**
  * Created by Shyam Rokde on 2/23/16.
  */
-public class TweetsFragment extends Fragment {
+public class TweetsFragment extends Fragment implements OnTweetPostListener {
 
   @Bind(R.id.swipeContainer) SwipeRefreshLayout swipeContainer;
   @Bind(R.id.rvTweets) RecyclerView rvTweets;
@@ -63,8 +64,6 @@ public class TweetsFragment extends Fragment {
     // Async Client
     client = TwitterApplication.getRestClient();
 
-    // Populate TimeLine
-    populateTimeline();
 
     return view;
   }
@@ -74,23 +73,12 @@ public class TweetsFragment extends Fragment {
     super.onCreate(savedInstanceState);
   }
 
-  /**
-   * Timeline from Twitter or DB
-   */
-  private void populateTimeline(){
-    if(TwitterUtil.isInternetAvailable()){
-      client.getHomeTimeline(mJsonHttpResponseHandler, 0);
-    }else {
-      // No Internet - doosh...
-      getStoredTweets(0);
-    }
-  }
+
 
   private void setupItemClick() {
     // Item click Listener
     ItemClickSupport.addTo(rvTweets).setOnItemClickListener(mItemClickListener);
   }
-
 
 
   public void setupSwipeRefresh(){
@@ -138,6 +126,7 @@ public class TweetsFragment extends Fragment {
     }
   }
 
+  @Override
   public void onTweetPost(Tweet tweet) {
     // Add Tweet in the beginning of list
     tweets.add(0, tweet);
