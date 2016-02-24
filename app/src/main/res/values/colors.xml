@@ -5,4 +5,9 @@
     <color name="colorAccent">#57ADEE</color>
     <!-- Some Colors for Simple Tweet App -->
     <color name="colorLoginScreen">#FFFFFF</color>
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="colorPagerTab">#4496d4</color>
+    <color name="colorPagerDivider">#57ADEE</color>
+    <color name="colorPagerIndicator">#57ADEE</color>
+    <color name="colorPagerUnderline">#ececec</color>
 </resources>

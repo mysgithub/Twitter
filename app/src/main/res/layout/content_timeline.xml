@@ -10,7 +10,13 @@
         app:pstsShouldExpand="true"
         app:pstsTextAllCaps="true"
         android:layout_width="match_parent"
-        android:layout_height="48dp" />
+        android:layout_height="48dp"
+        android:textColor="@color/colorPagerTab"
+        app:pstsDividerColor="@color/colorPagerDivider"
+        app:pstsIndicatorColor="@color/colorPagerIndicator"
+        app:pstsUnderlineColor="@color/colorPagerUnderline"
+        fontPath="fonts/Roboto-Medium.ttf"
+        />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/viewpager"
