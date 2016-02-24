@@ -19,7 +19,7 @@ import java.util.ArrayList;
 /**
  * Created by Shyam Rokde on 2/23/16.
  */
-public class HomeTimelineFragment extends TweetsFragment {
+public class MentionsTimelineFragment extends TweetsFragment{
 
   private TwitterClient client;
 
@@ -44,7 +44,7 @@ public class HomeTimelineFragment extends TweetsFragment {
 
   @Override
   public void getTweets(long maxId) {
-    client.getHomeTimeline(mJsonHttpResponseHandler, maxId);
+    client.getMentionsTimeline(mJsonHttpResponseHandler, maxId);
   }
 
   private final JsonHttpResponseHandler mJsonHttpResponseHandler = new JsonHttpResponseHandler() {

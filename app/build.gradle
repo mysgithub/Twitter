@@ -54,6 +54,7 @@ dependencies {
     // Video
     compile 'com.yqritc:android-scalablevideoview:1.0.3'
     compile 'com.malmstein:fenster:0.0.2'
+    compile 'com.astuetz:pagerslidingtabstrip:1.0.1'
 }
 
 

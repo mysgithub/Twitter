@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -12,7 +13,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.astuetz.PagerSlidingTabStrip;
 import com.codepath.apps.twitter.R;
+import com.codepath.apps.twitter.adapters.TweetsPagerAdapter;
 import com.codepath.apps.twitter.fragments.ComposeTweetDialog;
 import com.codepath.apps.twitter.utils.TwitterUtil;
 
@@ -24,6 +27,8 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 public class TimelineActivity extends AppCompatActivity {
 
   @Bind(R.id.fab) FloatingActionButton fab;
+  @Bind(R.id.viewpager) ViewPager vpPager;
+  @Bind(R.id.tabs) PagerSlidingTabStrip tabStrip;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +42,9 @@ public class TimelineActivity extends AppCompatActivity {
     // Floating Action Button
     setupFloatingActionButton();
 
+    // Set viewpager & Tab Strip
+    vpPager.setAdapter(new TweetsPagerAdapter(getSupportFragmentManager()));
+    tabStrip.setViewPager(vpPager);
   }
 
   @Override

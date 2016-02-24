@@ -15,6 +15,7 @@ import com.codepath.apps.twitter.R;
 import com.codepath.apps.twitter.activities.TweetDetailActivity;
 import com.codepath.apps.twitter.adapters.EndlessRecyclerViewScrollListener;
 import com.codepath.apps.twitter.adapters.TweetsRecyclerViewAdapter;
+import com.codepath.apps.twitter.interfaces.ITweetsFragment;
 import com.codepath.apps.twitter.interfaces.OnTweetPostListener;
 import com.codepath.apps.twitter.models.Tweet;
 import com.codepath.apps.twitter.utils.ItemClickSupport;
@@ -29,7 +30,7 @@ import butterknife.ButterKnife;
 /**
  * Created by Shyam Rokde on 2/23/16.
  */
-public class TweetsFragment extends Fragment implements OnTweetPostListener {
+public abstract class TweetsFragment extends Fragment implements OnTweetPostListener, ITweetsFragment {
 
   @Bind(R.id.swipeContainer) SwipeRefreshLayout swipeContainer;
   @Bind(R.id.rvTweets) RecyclerView rvTweets;
@@ -102,9 +103,6 @@ public class TweetsFragment extends Fragment implements OnTweetPostListener {
     });
   }
 
-  protected void getTweets(long maxId){
-    // Override this...
-  }
 
   /**
    * Get Stored Tweets
