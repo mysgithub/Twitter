@@ -15,5 +15,6 @@
     <string name="title_activity_main">MainActivity</string>
     <string name="hint_compose">Tweet Me!!!</string>
     <string name="screen_name">Screen Name</string>
+    <string name="profile">Profile</string>
 
 </resources>

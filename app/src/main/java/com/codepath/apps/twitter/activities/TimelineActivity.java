@@ -1,6 +1,7 @@
 package com.codepath.apps.twitter.activities;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentManager;
@@ -66,12 +67,20 @@ public class TimelineActivity extends AppCompatActivity {
     // as you specify a parent activity in AndroidManifest.xml.
     int id = item.getItemId();
     switch (id){
-      case R.id.itemCompose:
+      case R.id.miCompose:
           showComposeTweetDialog();
+        return true;
+      case R.id.miProfile:
+        showProfile();
         return true;
       default:
         return super.onOptionsItemSelected(item);
     }
+  }
+
+  private void showProfile() {
+    Intent intent = new Intent(this, ProfileActivity.class);
+    startActivity(intent);
   }
 
 
