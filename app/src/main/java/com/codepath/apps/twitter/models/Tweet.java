@@ -25,6 +25,9 @@ import java.util.List;
 @Table(name = "tweets")
 public class Tweet extends Model implements Parcelable {
 
+  public static final String HOME_TIMELINE = "home";
+  public static final String MENTIONS_TIMELINE = "mentions";
+
   @Column(name = "body")
   private String body;
   @Column(name = "uid", unique = true, onUniqueConflict = Column.ConflictAction.REPLACE)
@@ -33,6 +36,16 @@ public class Tweet extends Model implements Parcelable {
   private User user;
   @Column(name = "createdAt", index = true)
   private Date createdAt;
+  @Column(name = "tweetType", index = true)
+  private String tweetType;
+
+  public String getTweetType() {
+    return tweetType;
+  }
+
+  public void setTweetType(String tweetType) {
+    this.tweetType = tweetType;
+  }
 
   public Tweet(){
     super();
@@ -71,32 +84,27 @@ public class Tweet extends Model implements Parcelable {
   }
 
   // TODO: Not used because of GSON - Remove later
-  public Tweet(JSONObject jsonObject){
+  public Tweet(JSONObject jsonObject, String type){
     super();
     try{
       this.body = jsonObject.getString("text");
       this.uid = jsonObject.getLong("id");
       this.createdAt = TwitterUtil.getDateFromString(jsonObject.getString("created_at"));
       this.user = new User(jsonObject.getJSONObject("user"));
+      this.tweetType = type;
     }catch (JSONException e){
       e.printStackTrace();
     }
   }
 
 
-  public static ArrayList<Tweet> fromJSONArray(JSONArray jsonArray){
+  public static ArrayList<Tweet> fromJSONArray(JSONArray jsonArray, String type){
     ArrayList<Tweet> tweets = new ArrayList<>();
 
     for(int i=0; i < jsonArray.length(); i++){
       try {
         JSONObject jsonObject = jsonArray.getJSONObject(i);
-        Tweet tweet = new Tweet(jsonObject);
-        // TODO: Do this in AsyncTask; we should also delete some tweets
-        User user = tweet.user;
-        user.save();
-        tweet.user = user;
-        tweet.save();
-
+        Tweet tweet = new Tweet(jsonObject, type);
         tweets.add(tweet);
       } catch (JSONException e) {
         e.printStackTrace();
@@ -106,10 +114,16 @@ public class Tweet extends Model implements Parcelable {
     return tweets;
   }
 
-  public static List<Tweet> getAll(int page){
+  /**
+   * Gte Tweets from Database
+   * @param page
+   * @return
+   */
+  public static List<Tweet> getAll(int page, String type){
     final int limit = 25;
     Log.d("DEBUG", "Loading from database - offset " + limit * page); // TODO: Remove later
     List<Tweet> tweets = new Select().from(Tweet.class)
+        .where("tweetType = ?", type)
         .orderBy("createdAt DESC")
         .offset(limit * page).limit(limit).execute();
 
@@ -128,6 +142,7 @@ public class Tweet extends Model implements Parcelable {
     dest.writeLong(this.uid);
     dest.writeParcelable(this.user, 0);
     dest.writeLong(createdAt != null ? createdAt.getTime() : -1);
+    dest.writeString(this.tweetType);
   }
 
   protected Tweet(android.os.Parcel in) {
@@ -136,9 +151,10 @@ public class Tweet extends Model implements Parcelable {
     this.user = in.readParcelable(User.class.getClassLoader());
     long tmpCreatedAt = in.readLong();
     this.createdAt = tmpCreatedAt == -1 ? null : new Date(tmpCreatedAt);
+    this.tweetType = in.readString();
   }
 
-  public static final Parcelable.Creator<Tweet> CREATOR = new Parcelable.Creator<Tweet>() {
+  public static final Creator<Tweet> CREATOR = new Creator<Tweet>() {
     public Tweet createFromParcel(android.os.Parcel source) {
       return new Tweet(source);
     }

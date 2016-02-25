@@ -23,6 +23,8 @@
             android:name="AA_DB_VERSION"
             android:value="1"/>
 
+        <service android:name=".service.DBLoadService" android:exported="false"/>
+
         <activity
             android:name=".activities.LoginActivity"
             android:label="@string/app_name"

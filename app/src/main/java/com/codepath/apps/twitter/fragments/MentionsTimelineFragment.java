@@ -3,7 +3,9 @@ package com.codepath.apps.twitter.fragments;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
+import android.widget.Toast;
 
+import com.codepath.apps.twitter.R;
 import com.codepath.apps.twitter.TwitterApplication;
 import com.codepath.apps.twitter.models.Tweet;
 import com.codepath.apps.twitter.network.TwitterClient;
@@ -38,8 +40,13 @@ public class MentionsTimelineFragment extends TweetsFragment{
       getTweets(0);
     }else {
       // No Internet - doosh...
-      // TODO - getStoredTweets(0);
+      getStoredTweets(0);
     }
+  }
+
+  @Override
+  public String getType() {
+    return Tweet.MENTIONS_TIMELINE;
   }
 
   @Override
@@ -66,22 +73,19 @@ public class MentionsTimelineFragment extends TweetsFragment{
       Log.d("DEBUG", "Resposne: " + jsonArray.toString());
 
       int curSize = tweetsRecyclerViewAdapter.getItemCount();
-      ArrayList<Tweet> arrayList = Tweet.fromJSONArray(jsonArray);
+      ArrayList<Tweet> arrayList = Tweet.fromJSONArray(jsonArray, Tweet.MENTIONS_TIMELINE);
       tweets.addAll(arrayList);
 
-      // TODO: Remove later
-      Log.d("DEBUG", "curSize: " + curSize);
-      Log.d("DEBUG", "tweets.size: " + tweets.size());
-      Log.d("DEBUG", "arrayList.size: " + arrayList.size());
+      // Store in DB
+      TwitterUtil.storeTweets(getContext(), arrayList, Tweet.MENTIONS_TIMELINE);
 
       tweetsRecyclerViewAdapter.notifyItemRangeInserted(curSize, arrayList.size());
     }
 
     @Override
     public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-      Log.d("Failed2: ", "" + statusCode);
-      Log.d("Error : ", "" + throwable);
-      Log.d("Exception:", errorResponse.toString());
+      Log.d("ERROR", getString(R.string.no_internet));
+      Toast.makeText(getContext(), getString(R.string.no_internet), Toast.LENGTH_SHORT).show();
     }
   };
 }

@@ -38,13 +38,18 @@ public class HomeTimelineFragment extends TweetsFragment {
       getTweets(0);
     }else {
       // No Internet - doosh...
-      // TODO - getStoredTweets(0);
+      getStoredTweets(0);
     }
   }
 
   @Override
   public void getTweets(long maxId) {
     client.getHomeTimeline(mJsonHttpResponseHandler, maxId);
+  }
+
+  @Override
+  public String getType() {
+    return Tweet.HOME_TIMELINE;
   }
 
   private final JsonHttpResponseHandler mJsonHttpResponseHandler = new JsonHttpResponseHandler() {
@@ -66,13 +71,11 @@ public class HomeTimelineFragment extends TweetsFragment {
       Log.d("DEBUG", "Resposne: " + jsonArray.toString());
 
       int curSize = tweetsRecyclerViewAdapter.getItemCount();
-      ArrayList<Tweet> arrayList = Tweet.fromJSONArray(jsonArray);
+      ArrayList<Tweet> arrayList = Tweet.fromJSONArray(jsonArray, Tweet.HOME_TIMELINE);
       tweets.addAll(arrayList);
 
-      // TODO: Remove later
-      Log.d("DEBUG", "curSize: " + curSize);
-      Log.d("DEBUG", "tweets.size: " + tweets.size());
-      Log.d("DEBUG", "arrayList.size: " + arrayList.size());
+      // Store in DB
+      TwitterUtil.storeTweets(getContext(), arrayList, Tweet.HOME_TIMELINE);
 
       tweetsRecyclerViewAdapter.notifyItemRangeInserted(curSize, arrayList.size());
     }

@@ -1,10 +1,17 @@
 package com.codepath.apps.twitter.utils;
 
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.text.format.DateUtils;
+
+import com.codepath.apps.twitter.models.Tweet;
+import com.codepath.apps.twitter.service.DBLoadService;
 
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
@@ -65,5 +72,14 @@ public class TwitterUtil {
     } catch (IOException e)          { e.printStackTrace(); }
     catch (InterruptedException e) { e.printStackTrace(); }
     return false;
+  }
+
+  public static void storeTweets(Context context, ArrayList<Tweet> arrayList, String type){
+    Intent i = new Intent(context, DBLoadService.class);
+    Bundle bundle = new Bundle();
+    bundle.putParcelableArrayList("tweetList", arrayList);
+    i.putExtra("tweetsBundle", bundle);
+    i.putExtra("type", type);
+    context.startService(i);
   }
 }

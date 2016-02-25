@@ -3,7 +3,9 @@ package com.codepath.apps.twitter.fragments;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
+import android.widget.Toast;
 
+import com.codepath.apps.twitter.R;
 import com.codepath.apps.twitter.TwitterApplication;
 import com.codepath.apps.twitter.models.Tweet;
 import com.codepath.apps.twitter.network.TwitterClient;
@@ -38,7 +40,7 @@ public class UserTimelineFragment extends TweetsFragment {
       getTweets(0);
     }else {
       // No Internet - doosh...
-      // TODO - getStoredTweets(0);
+      Toast.makeText(getContext(), getString(R.string.no_internet), Toast.LENGTH_SHORT).show();
     }
   }
 
@@ -57,6 +59,11 @@ public class UserTimelineFragment extends TweetsFragment {
     return userFragment;
   }
 
+  @Override
+  public String getType() {
+    return null;
+  }
+
   private final JsonHttpResponseHandler mJsonHttpResponseHandler = new JsonHttpResponseHandler() {
     @Override
     public void onStart() {
@@ -73,23 +80,19 @@ public class UserTimelineFragment extends TweetsFragment {
 
     @Override
     public void onSuccess(int statusCode, Header[] headers, JSONArray jsonArray) {
-      Log.d("DEBUG", "Resposne: " + jsonArray.toString());
+      Log.d("DEBUG", "Response: " + jsonArray.toString());
 
       int curSize = tweetsRecyclerViewAdapter.getItemCount();
-      ArrayList<Tweet> arrayList = Tweet.fromJSONArray(jsonArray);
+      ArrayList<Tweet> arrayList = Tweet.fromJSONArray(jsonArray, null);
       tweets.addAll(arrayList);
-
-      // TODO: Remove later
-      Log.d("DEBUG", "curSize: " + curSize);
-      Log.d("DEBUG", "tweets.size: " + tweets.size());
-      Log.d("DEBUG", "arrayList.size: " + arrayList.size());
 
       tweetsRecyclerViewAdapter.notifyItemRangeInserted(curSize, arrayList.size());
     }
 
     @Override
     public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-      // TODO; Add Toast and Error log
+      Log.d("ERROR", getString(R.string.no_internet));
+      Toast.makeText(getContext(), getString(R.string.no_internet), Toast.LENGTH_SHORT).show();
     }
   };
 }

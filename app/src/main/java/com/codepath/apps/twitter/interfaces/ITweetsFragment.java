@@ -5,4 +5,5 @@ package com.codepath.apps.twitter.interfaces;
  */
 public interface ITweetsFragment {
   void getTweets(long maxId);
+  String getType();
 }

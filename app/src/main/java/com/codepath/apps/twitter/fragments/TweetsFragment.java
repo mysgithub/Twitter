@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.codepath.apps.twitter.R;
 import com.codepath.apps.twitter.activities.TweetDetailActivity;
@@ -61,9 +62,10 @@ public abstract class TweetsFragment extends Fragment implements OnTweetPostList
   @Override
   public void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+
+    tweets = new ArrayList<>();
+    tweetsRecyclerViewAdapter = new TweetsRecyclerViewAdapter(tweets, getContext());
   }
-
-
 
   private void setupItemClick() {
     // Item click Listener
@@ -82,8 +84,7 @@ public abstract class TweetsFragment extends Fragment implements OnTweetPostList
   }
 
   private void setupRecyclerView(){
-    tweets = new ArrayList<>();
-    tweetsRecyclerViewAdapter = new TweetsRecyclerViewAdapter(tweets, getContext());
+
     //lvTweets.setAdapter(tweetsArrayAdapter);
     rvTweets.setAdapter(tweetsRecyclerViewAdapter);
 
@@ -97,7 +98,11 @@ public abstract class TweetsFragment extends Fragment implements OnTweetPostList
           long maxId = tweets.get(tweets.size() - 1).getUid() - 1; // -1 so that duplicate will not appear..
           getTweets(maxId);
         } else {
-          getStoredTweets(page);
+          if(getType() != null){
+            getStoredTweets(page);
+          }else{
+            Toast.makeText(getContext(), getString(R.string.no_internet), Toast.LENGTH_SHORT).show();
+          }
         }
       }
     });
@@ -110,10 +115,13 @@ public abstract class TweetsFragment extends Fragment implements OnTweetPostList
    */
   public void getStoredTweets(int page){
     int curSize = tweetsRecyclerViewAdapter.getItemCount();
-    List<Tweet> tweetList = Tweet.getAll(page);
+    List<Tweet> tweetList = Tweet.getAll(page, getType());
+
     if(tweetList.size() > 0){
       tweets.addAll(tweetList);
       tweetsRecyclerViewAdapter.notifyItemRangeInserted(curSize, tweetList.size());
+    }else if(!TwitterUtil.isInternetAvailable()){
+      Toast.makeText(getContext(), getString(R.string.no_internet), Toast.LENGTH_SHORT).show();
     }
   }
 
@@ -129,13 +137,11 @@ public abstract class TweetsFragment extends Fragment implements OnTweetPostList
     @Override
     public void onRefresh() {
       if(TwitterUtil.isInternetAvailable()) {
-        // Clear Old Items
-        tweetsRecyclerViewAdapter.clear();
-        // Get New
-        getTweets(0);
+        tweetsRecyclerViewAdapter.clear(); // Clear Old Items
+        getTweets(0); // Get New
       }else{
-        //Toast.makeText(TimelineActivity.this, "Unable to connect to twitter.com", Toast.LENGTH_LONG).show();
         swipeContainer.setRefreshing(false);
+        Toast.makeText(getContext(), getString(R.string.no_internet), Toast.LENGTH_SHORT).show();
       }
     }
   };
