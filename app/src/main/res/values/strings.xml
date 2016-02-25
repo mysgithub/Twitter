@@ -16,5 +16,9 @@
     <string name="hint_compose">Tweet Me!!!</string>
     <string name="screen_name">Screen Name</string>
     <string name="profile">Profile</string>
+    <string name="name">Name</string>
+    <string name="tagline">Tagline</string>
+    <string name="followers">5 Followers</string>
+    <string name="following">10 Following</string>
 
 </resources>
