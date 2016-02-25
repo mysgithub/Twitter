@@ -18,7 +18,7 @@
     <string name="profile">Profile</string>
     <string name="name">Name</string>
     <string name="tagline">Tagline</string>
-    <string name="followers">5 Followers</string>
-    <string name="following">10 Following</string>
+    <string name="followers">Followers</string>
+    <string name="following">Following</string>
 
 </resources>

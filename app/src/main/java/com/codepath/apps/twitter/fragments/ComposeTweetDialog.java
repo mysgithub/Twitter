@@ -111,7 +111,8 @@ public class ComposeTweetDialog extends DialogFragment {
     tvCharCount.setText(String.valueOf(TwitterUtil.TWEET_MAX_ALLOWED_CHAR));
 
     // Get User Info
-    twitterClient.getProfileInfo(mProfileInfoResponseHandler);
+    String screenName = null;
+    twitterClient.getProfileInfo(screenName, mProfileInfoResponseHandler);
   }
 
   public void setProfileData(){

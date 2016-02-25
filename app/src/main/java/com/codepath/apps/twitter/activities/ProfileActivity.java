@@ -39,14 +39,15 @@ public class ProfileActivity extends AppCompatActivity {
 
     ButterKnife.bind(this);
 
+    // Get screenName
+    String screenName = getIntent().getStringExtra("screen_name");
+
     // Async Client
     client = TwitterApplication.getRestClient();
-    client.getProfileInfo(mProfileInfoResponseHandler);
+    client.getProfileInfo(screenName, mProfileInfoResponseHandler);
 
     // User Time line
-    String screenName = getIntent().getStringExtra("screen_name");
     if(savedInstanceState == null){
-
       UserTimelineFragment fragmentUserTimeline = UserTimelineFragment.newInstance(screenName);
 
       FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
@@ -84,8 +85,8 @@ public class ProfileActivity extends AppCompatActivity {
 
     tvName.setText(twitterProfileResponse.getName());
     tvTagline.setText(twitterProfileResponse.getDescription());
-    tvFollowers.setText(twitterProfileResponse.getFollowersCount() + " Followers");
-    tvFollowing.setText(twitterProfileResponse.getFriendsCount() + " Followings");
+    tvFollowers.setText(String.format("%s %s", twitterProfileResponse.getFollowersCount(), getString(R.string.followers)));
+    tvFollowing.setText(String.format("%s %s", twitterProfileResponse.getFriendsCount(), getString(R.string.following)));
 
     Glide.with(getApplicationContext()).load(twitterProfileResponse.getProfileImageUrl()).fitCenter().into(ivProfileImage);
   }
