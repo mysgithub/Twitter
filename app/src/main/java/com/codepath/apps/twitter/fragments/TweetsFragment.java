@@ -67,6 +67,8 @@ public abstract class TweetsFragment extends Fragment implements OnTweetPostList
     tweetsRecyclerViewAdapter = new TweetsRecyclerViewAdapter(tweets, getContext());
   }
 
+
+
   private void setupItemClick() {
     // Item click Listener
     ItemClickSupport.addTo(rvTweets).setOnItemClickListener(mItemClickListener);

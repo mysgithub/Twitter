@@ -23,7 +23,9 @@
             android:name="AA_DB_VERSION"
             android:value="1"/>
 
-        <service android:name=".service.DBLoadService" android:exported="false"/>
+        <service
+            android:name=".service.DBLoadService"
+            android:exported="false"/>
 
         <activity
             android:name=".activities.LoginActivity"
@@ -58,6 +60,8 @@
                 android:value="com.codepath.apps.twitter.activities.TimelineActivity"/>
         </activity>
         <activity android:name=".activities.ProfileActivity">
+        </activity>
+        <activity android:name=".activities.FollowUserActivity">
         </activity>
     </application>
 

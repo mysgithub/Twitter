@@ -18,8 +18,8 @@
     <string name="profile">Profile</string>
     <string name="name">Name</string>
     <string name="tagline">Tagline</string>
-    <string name="followers">Followers</string>
-    <string name="following">Following</string>
+    <string name="followers">FOLLOWERS</string>
+    <string name="following">FOLLOWING</string>
     <string name="no_internet">Unable to connect to twitter.com</string>
 
 </resources>

@@ -34,13 +34,13 @@ public class TwitterProfileResponse {
     private String description;
     @SerializedName("favourites_count")
     @Expose
-    private Integer favouritesCount;
+    private Long favouritesCount;
     @SerializedName("follow_request_sent")
     @Expose
     private Object followRequestSent;
     @SerializedName("followers_count")
     @Expose
-    private Integer followersCount;
+    private Long followersCount;
     @SerializedName("following")
     @Expose
     private Object following;
@@ -52,7 +52,7 @@ public class TwitterProfileResponse {
     private Boolean geoEnabled;
     @SerializedName("id")
     @Expose
-    private Integer id;
+    private Long id;
     @SerializedName("id_str")
     @Expose
     private String idStr;
@@ -230,7 +230,7 @@ public class TwitterProfileResponse {
      * @return
      *     The favouritesCount
      */
-    public Integer getFavouritesCount() {
+    public Long getFavouritesCount() {
         return favouritesCount;
     }
 
@@ -239,7 +239,7 @@ public class TwitterProfileResponse {
      * @param favouritesCount
      *     The favourites_count
      */
-    public void setFavouritesCount(Integer favouritesCount) {
+    public void setFavouritesCount(Long favouritesCount) {
         this.favouritesCount = favouritesCount;
     }
 
@@ -266,7 +266,7 @@ public class TwitterProfileResponse {
      * @return
      *     The followersCount
      */
-    public Integer getFollowersCount() {
+    public Long getFollowersCount() {
         return followersCount;
     }
 
@@ -275,7 +275,7 @@ public class TwitterProfileResponse {
      * @param followersCount
      *     The followers_count
      */
-    public void setFollowersCount(Integer followersCount) {
+    public void setFollowersCount(Long followersCount) {
         this.followersCount = followersCount;
     }
 
@@ -338,7 +338,7 @@ public class TwitterProfileResponse {
      * @return
      *     The id
      */
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
@@ -347,7 +347,7 @@ public class TwitterProfileResponse {
      * @param id
      *     The id
      */
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

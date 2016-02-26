@@ -31,6 +31,7 @@ public class TwitterApplication extends com.activeandroid.app.Application {
 				.setDefaultFontPath("fonts/Roboto-Regular.ttf")
 				.setFontAttrId(R.attr.fontPath)
 				.build());
+
 		ViewTarget.setTagId(R.id.glide_tag_id);
 	}
 
