@@ -30,13 +30,19 @@ public class TwitterUtil {
     String relativeDate = "";
 
     try {
-      //long dateMillis = sf.parse(createdAt).getTime();
+
       String relativeTime = DateUtils.getRelativeTimeSpanString(timestamp.getTime()).toString();
+
       String[] words = relativeTime.split("\\s+");
       if(relativeTime.startsWith("in")){
         relativeDate = "new";
       }else{
-        relativeDate = String.format("%s%s", words[0], words[1].charAt(0));
+        if(words.length > 1){
+          relativeDate = String.format("%s%s", words[0], words[1].charAt(0));
+        }else{
+          relativeDate = words.toString();
+        }
+
       }
 
     } catch (Exception e) {

@@ -6,7 +6,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.codepath.apps.twitter.R;
@@ -53,18 +52,18 @@ public class TweetsRecyclerViewAdapter extends RecyclerView.Adapter<TimelineView
     viewHolder.ivProfileImage.setImageResource(android.R.color.transparent); // clear out old image for recycled view
     Glide.with(mContext).load(tweet.getUser().getProfileImageUrl()).fitCenter().into(viewHolder.ivProfileImage);
 
-    //viewHolder.ivProfileImage.setTag(tweet.getUser().getScreenName());
+    viewHolder.ivProfileImage.setTag(tweet.getUser().getScreenName());
     viewHolder.tvTime.setText(TwitterUtil.getFormattedRelativeTime(tweet.getCreatedAt()));
 
     // 3. Set Profile Image listner
     viewHolder.ivProfileImage.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-        ViewGroup parent = (ViewGroup) v.getParent();
+        //ViewGroup parent = (ViewGroup) v.getParent();
 
-        TextView screenN = (TextView) parent.findViewById(R.id.tvScreenName);
+        //TextView screenN = (TextView) parent.findViewById(R.id.tvScreenName);
         Intent intent = new Intent(v.getContext(), ProfileActivity.class);
-        intent.putExtra("screen_name", screenN.getText());
+        intent.putExtra("screen_name", v.getTag().toString());
 
         v.getContext().startActivity(intent);
       }
