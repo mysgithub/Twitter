@@ -1,6 +1,7 @@
 package com.codepath.apps.twitter.activities;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -35,6 +36,8 @@ public class ProfileActivity extends AppCompatActivity {
   @Bind(R.id.tvTagline) TextView tvTagline;
   @Bind(R.id.tvFollowers) TextView tvFollowers;
   @Bind(R.id.tvFollowing) TextView tvFollowing;
+
+  private String screenName;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -101,10 +104,15 @@ public class ProfileActivity extends AppCompatActivity {
 
     Glide.with(getApplicationContext()).load(twitterProfileResponse.getProfileImageUrl()).fitCenter().into(ivProfileImage);
 
+    screenName = twitterProfileResponse.getScreenName();
+
     tvFollowers.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
         Log.d("DEBUG", "tvFollowers clicked");
+        Intent i = new Intent(getApplicationContext(), FollowUserActivity.class);
+        i.putExtra("screen_name", screenName);
+        startActivity(i);
       }
     });
 
@@ -112,6 +120,10 @@ public class ProfileActivity extends AppCompatActivity {
       @Override
       public void onClick(View v) {
         Log.d("DEBUG", "tvFollowing clicked");
+        Intent i = new Intent(getApplicationContext(), FollowUserActivity.class);
+        i.putExtra("screen_name", screenName);
+        i.putExtra("type", "following");
+        startActivity(i);
       }
     });
 
