@@ -133,18 +133,17 @@ public class ComposeTweetDialog extends DialogFragment {
       Log.d("DEBUG", "POST Resposne: " + responseString);
 
       TweetPostResponse tweetPostResponse = TweetPostResponse.parseJSON(responseString);
+
       User user = new User();
       user.setUid(tweetPostResponse.getUser().getId());
       user.setName(tweetPostResponse.getUser().getName());
       user.setScreenName(tweetPostResponse.getUser().getScreenName());
       user.setProfileImageUrl(tweetPostResponse.getUser().getProfileImageUrl());
-      user.save(); // save in db
       Tweet tweet = new Tweet();
       tweet.setBody(tweetPostResponse.getText());
       tweet.setUid(tweetPostResponse.getId());
       tweet.setCreatedAt(TwitterUtil.getDateFromString(tweetPostResponse.getCreatedAt()));
       tweet.setUser(user);
-      tweet.save(); // save in db
 
       tweetPostListener.onTweetPost(tweet);
       dismiss();

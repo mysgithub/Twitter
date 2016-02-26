@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.util.Log;
 import android.view.View;
@@ -36,6 +37,7 @@ public class ProfileActivity extends AppCompatActivity {
   @Bind(R.id.tvTagline) TextView tvTagline;
   @Bind(R.id.tvFollowers) TextView tvFollowers;
   @Bind(R.id.tvFollowing) TextView tvFollowing;
+  @Bind(R.id.toolbar) Toolbar toolbar;
 
   private String screenName;
 
@@ -45,6 +47,9 @@ public class ProfileActivity extends AppCompatActivity {
     setContentView(R.layout.activity_profile);
 
     ButterKnife.bind(this);
+
+    // Toolbar
+    setSupportActionBar(toolbar);
 
     // Get screenName
     String screenName = getIntent().getStringExtra("screen_name");

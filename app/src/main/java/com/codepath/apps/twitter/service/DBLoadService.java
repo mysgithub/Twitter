@@ -15,9 +15,6 @@ import java.util.ArrayList;
  */
 public class DBLoadService extends IntentService {
 
-
-
-
   public DBLoadService() {
     super("database-load-service");
   }

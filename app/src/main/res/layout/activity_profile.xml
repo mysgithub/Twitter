@@ -1,103 +1,116 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="10dp"
-    tools:context="com.codepath.apps.twitter.activities.ProfileActivity"
-    tools:ignore="MissingPrefix"
-    android:background="@color/colorWhite"
-    >
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <!-- Toolbar -->
+    <include layout="@layout/toolbar" />
 
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:id="@+id/rlHeader">
-
-        <com.makeramen.roundedimageview.RoundedImageView
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:layout_width="75dp"
-            android:layout_height="75dp"
-            android:maxHeight="75dp"
-            android:id="@+id/ivProfileImage"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:adjustViewBounds="true"
-            app:riv_corner_radius="4dp"
-            />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/name"
-            android:id="@+id/tvName"
-            android:layout_alignTop="@+id/ivProfileImage"
-            android:layout_toRightOf="@+id/ivProfileImage"
-            android:layout_toEndOf="@+id/ivProfileImage"
-            android:layout_centerVertical="true"
-            android:gravity="center_vertical"
-            android:textSize="16sp"
-            fontPath="fonts/Roboto-Bold.ttf"
-            android:paddingLeft="10dp"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/tagline"
-            android:id="@+id/tvTagline"
-            android:layout_below="@+id/tvName"
-            android:layout_toRightOf="@+id/ivProfileImage"
-            android:layout_toEndOf="@+id/ivProfileImage"
-            android:paddingLeft="10dp"
-            android:textSize="14sp"
-            fontPath="fonts/Roboto-Regular.ttf"
-            />
-
-    </RelativeLayout>
-
-    <LinearLayout
-        android:id="@+id/llCounts"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_below="@+id/rlHeader"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/tvFollowing"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="20"
-            android:textSize="14sp"
-            fontPath="fonts/Roboto-Regular.ttf"
-            />
-
-        <TextView
-            android:id="@+id/tvFollowers"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:text="15"
-            android:textSize="14sp"
-            fontPath="fonts/Roboto-Regular.ttf"
-            />
-
-
-
-    </LinearLayout>
-
-
-    <FrameLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/llCounts"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:id="@+id/flContainer">
-    </FrameLayout>
-</RelativeLayout>
+        android:background="@color/colorWhite"
+        android:padding="10dp"
+        tools:context="com.codepath.apps.twitter.activities.ProfileActivity"
+        tools:ignore="MissingPrefix"
+        >
+
+        <RelativeLayout
+            android:id="@+id/rlHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true">
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/ivProfileImage"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:adjustViewBounds="true"
+                android:maxHeight="75dp"
+                app:riv_corner_radius="4dp"
+                />
+
+            <TextView
+                android:id="@+id/tvName"
+                fontPath="fonts/Roboto-Bold.ttf"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/ivProfileImage"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/ivProfileImage"
+                android:layout_toRightOf="@+id/ivProfileImage"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:text="@string/name"
+                android:textSize="16sp"/>
+
+            <TextView
+                android:id="@+id/tvTagline"
+                fontPath="fonts/Roboto-Regular.ttf"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvName"
+                android:layout_toEndOf="@+id/ivProfileImage"
+                android:layout_toRightOf="@+id/ivProfileImage"
+                android:paddingLeft="10dp"
+                android:text="@string/tagline"
+                android:textSize="14sp"
+                />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/llCounts"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rlHeader"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvFollowing"
+                fontPath="fonts/Roboto-Regular.ttf"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="20"
+                android:textSize="14sp"
+                />
+
+            <TextView
+                android:id="@+id/tvFollowers"
+                fontPath="fonts/Roboto-Regular.ttf"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:text="15"
+                android:textSize="14sp"
+                />
+
+
+        </LinearLayout>
+
+
+        <FrameLayout
+            android:id="@+id/flContainer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/llCounts">
+        </FrameLayout>
+    </RelativeLayout>
+
+</LinearLayout>

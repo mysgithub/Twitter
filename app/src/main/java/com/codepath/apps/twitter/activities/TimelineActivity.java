@@ -4,10 +4,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -18,6 +20,9 @@ import com.astuetz.PagerSlidingTabStrip;
 import com.codepath.apps.twitter.R;
 import com.codepath.apps.twitter.adapters.TweetsPagerAdapter;
 import com.codepath.apps.twitter.fragments.ComposeTweetDialog;
+import com.codepath.apps.twitter.fragments.HomeTimelineFragment;
+import com.codepath.apps.twitter.interfaces.OnTweetPostListener;
+import com.codepath.apps.twitter.models.Tweet;
 import com.codepath.apps.twitter.utils.TwitterUtil;
 
 import butterknife.Bind;
@@ -25,11 +30,12 @@ import butterknife.ButterKnife;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 
-public class TimelineActivity extends AppCompatActivity {
+public class TimelineActivity extends AppCompatActivity implements OnTweetPostListener {
 
   @Bind(R.id.fab) FloatingActionButton fab;
   @Bind(R.id.viewpager) ViewPager vpPager;
   @Bind(R.id.tabs) PagerSlidingTabStrip tabStrip;
+  @Bind(R.id.toolbar) Toolbar toolbar;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +43,9 @@ public class TimelineActivity extends AppCompatActivity {
     setContentView(R.layout.activity_timeline);
 
     ButterKnife.bind(this);
+
+    // Toolbar
+    setSupportActionBar(toolbar);
 
     // Change ActionBar Icon
     showTwitterIcon();
@@ -78,11 +87,22 @@ public class TimelineActivity extends AppCompatActivity {
     }
   }
 
+  @Override
+  public void onTweetPost(Tweet tweet) {
+
+    // Don't know if this is correct or not..
+    for (Fragment fragment : getSupportFragmentManager().getFragments()) {
+      if(fragment instanceof HomeTimelineFragment){
+        ((HomeTimelineFragment) fragment).onNewTweetPost(tweet);
+      }
+    }
+
+  }
+
   private void showProfile() {
     Intent intent = new Intent(this, ProfileActivity.class);
     startActivity(intent);
   }
-
 
   private void showComposeTweetDialog(){
       if(TwitterUtil.isInternetAvailable()) {

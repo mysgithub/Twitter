@@ -5,10 +5,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    android:background="@color/colorWhite"
-    >
+    android:background="@color/colorWhite">
 
-    <include layout="@layout/content_timeline" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <!-- Toolbar -->
+        <include layout="@layout/toolbar" />
+
+        <!-- Main Content -->
+        <include layout="@layout/content_timeline" />
+
+    </LinearLayout>
+
+
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
