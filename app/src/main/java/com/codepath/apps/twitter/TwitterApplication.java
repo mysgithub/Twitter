@@ -3,6 +3,7 @@ package com.codepath.apps.twitter;
 import android.content.Context;
 
 import com.activeandroid.ActiveAndroid;
+import com.bumptech.glide.request.target.ViewTarget;
 import com.codepath.apps.twitter.network.TwitterClient;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
@@ -30,6 +31,7 @@ public class TwitterApplication extends com.activeandroid.app.Application {
 				.setDefaultFontPath("fonts/Roboto-Regular.ttf")
 				.setFontAttrId(R.attr.fontPath)
 				.build());
+		ViewTarget.setTagId(R.id.glide_tag_id);
 	}
 
 	public static TwitterClient getRestClient() {
