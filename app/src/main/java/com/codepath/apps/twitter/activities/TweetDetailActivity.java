@@ -21,6 +21,8 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.codepath.apps.twitter.R;
 import com.codepath.apps.twitter.TwitterApplication;
+import com.codepath.apps.twitter.fragments.ComposeTweetDialog;
+import com.codepath.apps.twitter.interfaces.OnTweetPostListener;
 import com.codepath.apps.twitter.models.Tweet;
 import com.codepath.apps.twitter.models.User;
 import com.codepath.apps.twitter.models.gson.ReTweetResponse;
@@ -44,7 +46,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-public class TweetDetailActivity extends AppCompatActivity {
+public class TweetDetailActivity extends AppCompatActivity implements OnTweetPostListener {
 
   @Bind(R.id.ivProfileImage) public ImageView ivProfileImage;
   @Bind(R.id.tvUserName) public TextView tvUserName;
@@ -148,6 +150,17 @@ public class TweetDetailActivity extends AppCompatActivity {
       ibLike.setImageResource(R.drawable.ic_action_like);
     }
     ibLike.setOnClickListener(mLikeListener);
+
+
+    ibReply.setTag(R.id.reply_tag_id, tweet);
+    ibReply.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        Tweet t = (Tweet) v.getTag(R.id.reply_tag_id);
+        ComposeTweetDialog dialog = ComposeTweetDialog.newInstance(t);
+        dialog.show(getSupportFragmentManager(), "compose");
+      }
+    });
 
     // TODO - Just Hard code TweetId for testing video
     /*long twid = 699676008585166848L;
@@ -353,7 +366,7 @@ public class TweetDetailActivity extends AppCompatActivity {
           if (tweet.isFavorite()) {
             tweet.setIsFavorite(false);
             ibLike.setImageResource(R.drawable.ic_action_like);
-          }else{
+          } else {
             tweet.setIsFavorite(true);
             ibLike.setImageResource(R.drawable.ic_action_like_on);
           }
@@ -368,5 +381,10 @@ public class TweetDetailActivity extends AppCompatActivity {
       }, tweet.getUid(), tweet.isFavorite());
     }
   };
+
+  @Override
+  public void onTweetPost(Tweet tweet) {
+    // TODO: Nothing
+  }
 }
 
