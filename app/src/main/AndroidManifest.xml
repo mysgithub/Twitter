@@ -16,6 +16,7 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
+
         <meta-data
             android:name="AA_DB_NAME"
             android:value="TwitterClient.db"/>
@@ -49,7 +50,11 @@
         <activity
             android:name=".activities.TimelineActivity"
             android:label="@string/title_activity_timeline"
-            android:launchMode="singleTop"/>
+            android:launchMode="singleTop">
+            <meta-data
+                android:name="android.app.default_searchable"
+                android:value=".activities.TimelineSearchActivity"/>
+        </activity>
         <activity
             android:name=".activities.TweetDetailActivity"
             android:label="@string/title_activity_tweetdetail"
@@ -58,9 +63,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.codepath.apps.twitter.activities.TimelineActivity"/>
         </activity>
-        <activity android:name=".activities.ProfileActivity">
-        </activity>
-        <activity android:name=".activities.FollowUserActivity">
+        <activity android:name=".activities.ProfileActivity"/>
+        <activity android:name=".activities.FollowUserActivity"/>
+
+        <activity android:name=".activities.TimelineSearchActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+            <meta-data android:name="android.app.searchable" android:resource="@xml/searchable"/>
         </activity>
     </application>
 

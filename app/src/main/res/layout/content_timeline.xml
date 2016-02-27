@@ -17,6 +17,7 @@
         app:pstsDividerColor="@color/colorPagerDivider"
         app:pstsIndicatorColor="@color/colorPagerIndicator"
         app:pstsUnderlineColor="@color/colorPagerUnderline"
+        app:tabBackground="@android:color/white"
         fontPath="fonts/Roboto-Medium.ttf"
         />
 
@@ -25,6 +26,8 @@
         android:layout_below="@+id/tabs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/white" />
+        android:background="@android:color/white"
+        app:tabBackground="@android:color/white"
+        />
 
 </RelativeLayout>

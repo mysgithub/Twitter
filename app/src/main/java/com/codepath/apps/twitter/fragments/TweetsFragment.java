@@ -94,7 +94,7 @@ public abstract class TweetsFragment extends Fragment implements ITweetsFragment
   }
 
 
-  public void setupSwipeRefresh(){
+  protected void setupSwipeRefresh(){
     // Setup refresh listener which triggers new data loading
     swipeContainer.setOnRefreshListener(mRefreshListener);
     // Configure the refreshing colors
@@ -253,7 +253,6 @@ public abstract class TweetsFragment extends Fragment implements ITweetsFragment
     public void onProgressStart();
     public void onProgressStop();
   }
-
 
 
 }
