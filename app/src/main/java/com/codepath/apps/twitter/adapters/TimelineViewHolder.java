@@ -2,6 +2,7 @@ package com.codepath.apps.twitter.adapters;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -19,7 +20,9 @@ public class TimelineViewHolder extends RecyclerView.ViewHolder {
   @Bind(R.id.tvBody) public TextView tvBody;
   @Bind(R.id.tvTime) public TextView tvTime;
   @Bind(R.id.tvScreenName) public TextView tvScreenName;
-  @Bind(R.id.ivReply) public ImageView ivReply;
+  @Bind(R.id.ibReply) public ImageButton ibReply;
+  @Bind(R.id.ibRetweet) public ImageButton ibRetweet;
+  @Bind(R.id.ibLike) public ImageButton ibLike;
 
   public TimelineViewHolder(final View itemView) {
     super(itemView);

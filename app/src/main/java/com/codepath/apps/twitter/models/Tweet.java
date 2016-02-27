@@ -38,6 +38,46 @@ public class Tweet extends Model implements Parcelable {
   private Date createdAt;
   @Column(name = "tweetType", index = true)
   private String tweetType;
+  @Column(name = "isReTweeted")
+  private boolean isReTweeted=false;
+  @Column(name = "reTweetCount")
+  private Long reTweetCount;
+  @Column(name = "isFavorite")
+  private boolean isFavorite=false;
+  @Column(name = "favoriteCount")
+  private Long favoriteCount;
+
+  public boolean isFavorite() {
+    return isFavorite;
+  }
+
+  public void setIsFavorite(boolean isFavorite) {
+    this.isFavorite = isFavorite;
+  }
+
+  public Long getFavoriteCount() {
+    return favoriteCount;
+  }
+
+  public void setFavoriteCount(Long favoriteCount) {
+    this.favoriteCount = favoriteCount;
+  }
+
+  public boolean isReTweeted() {
+    return isReTweeted;
+  }
+
+  public void setIsReTweeted(boolean isReTweeted) {
+    this.isReTweeted = isReTweeted;
+  }
+
+  public Long getReTweetCount() {
+    return reTweetCount;
+  }
+
+  public void setReTweetCount(Long reTweetCount) {
+    this.reTweetCount = reTweetCount;
+  }
 
   public String getTweetType() {
     return tweetType;
@@ -92,6 +132,11 @@ public class Tweet extends Model implements Parcelable {
       this.createdAt = TwitterUtil.getDateFromString(jsonObject.getString("created_at"));
       this.user = new User(jsonObject.getJSONObject("user"));
       this.tweetType = type;
+      this.isFavorite = jsonObject.getBoolean("favorited");
+      this.favoriteCount = jsonObject.getJSONObject("user").getLong("favourites_count");
+      this.reTweetCount = jsonObject.getLong("retweet_count");
+      this.isReTweeted = jsonObject.getBoolean("retweeted");
+
     }catch (JSONException e){
       e.printStackTrace();
     }
@@ -143,6 +188,10 @@ public class Tweet extends Model implements Parcelable {
     dest.writeParcelable(this.user, 0);
     dest.writeLong(createdAt != null ? createdAt.getTime() : -1);
     dest.writeString(this.tweetType);
+    dest.writeByte(isReTweeted ? (byte) 1 : (byte) 0);
+    dest.writeValue(this.reTweetCount);
+    dest.writeByte(isFavorite ? (byte) 1 : (byte) 0);
+    dest.writeValue(this.favoriteCount);
   }
 
   protected Tweet(android.os.Parcel in) {
@@ -152,6 +201,10 @@ public class Tweet extends Model implements Parcelable {
     long tmpCreatedAt = in.readLong();
     this.createdAt = tmpCreatedAt == -1 ? null : new Date(tmpCreatedAt);
     this.tweetType = in.readString();
+    this.isReTweeted = in.readByte() != 0;
+    this.reTweetCount = (Long) in.readValue(Long.class.getClassLoader());
+    this.isFavorite = in.readByte() != 0;
+    this.favoriteCount = (Long) in.readValue(Long.class.getClassLoader());
   }
 
   public static final Creator<Tweet> CREATOR = new Creator<Tweet>() {

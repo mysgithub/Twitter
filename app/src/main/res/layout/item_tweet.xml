@@ -1,95 +1,134 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="10dp"
-                tools:ignore="MissingPrefix">
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="10dp">
 
-    <com.makeramen.roundedimageview.RoundedImageView
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:id="@+id/ivProfileImage"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:background="@android:color/transparent"
-        android:layout_marginRight="5dp"
-        android:layout_marginEnd="5dp"
-        android:adjustViewBounds="true"
-        app:riv_corner_radius="4dp"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:ignore="MissingPrefix">
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/ivProfileImage"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginEnd="5dp"
+            android:layout_marginRight="5dp"
+            android:adjustViewBounds="true"
+            android:background="@android:color/transparent"
+            app:riv_corner_radius="4dp"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_toEndOf="@+id/ivProfileImage"
+            android:layout_toRightOf="@+id/ivProfileImage"
+            android:orientation="vertical"
+            >
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tvUserName"
+                    fontPath="fonts/Roboto-Bold.ttf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="New Text"
+                    android:textSize="16sp"
+                    />
+
+                <TextView
+                    android:id="@+id/tvScreenName"
+                    fontPath="fonts/Roboto-Medium.ttf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="5dp"
+                    android:paddingStart="5dp"
+                    android:text="@string/screen_name"
+                    android:textSize="12sp"
+                    />
+            </LinearLayout>
+
+
+            <com.codepath.apps.twitter.utils.LinkifiedTextView
+                android:id="@+id/tvBody"
+                fontPath="fonts/Roboto-Regular.ttf"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:autoLink="all"
+                android:paddingTop="5dp"
+                android:text="New Text"
+                android:textSize="14sp"
+                />
+
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/tvTime"
+            fontPath="fonts/Roboto-Regular.ttf"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:text="@string/rel_time"
+            android:textSize="14sp"
+            />
+
+
+    </RelativeLayout>
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/ivProfileImage"
-        android:layout_toEndOf="@+id/ivProfileImage"
-        android:orientation="vertical"
-        >
-        <LinearLayout
+        android:orientation="horizontal"
+        android:layout_marginLeft="50dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="5dp">
+
+        <ImageButton
+            android:id="@+id/ibReply"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="New Text"
-                android:id="@+id/tvUserName"
-                android:textSize="16sp"
-                fontPath="fonts/Roboto-Bold.ttf"
-                />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/tvScreenName"
-                android:textSize="12sp"
-                android:text="@string/screen_name"
-                android:paddingLeft="5dp"
-                android:paddingStart="5dp"
-                fontPath="fonts/Roboto-Medium.ttf"
-                />
-        </LinearLayout>
+            android:layout_gravity="start"
+            android:src="@drawable/ic_action_reply"
+            android:background="@android:color/transparent"/>
+        <Space
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"/>
 
-
-        <com.codepath.apps.twitter.utils.LinkifiedTextView
+        <ImageButton
+            android:id="@+id/ibRetweet"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="New Text"
-            android:id="@+id/tvBody"
-            android:autoLink="all"
-            android:paddingTop="5dp"
-            android:textSize="14sp"
-            fontPath="fonts/Roboto-Regular.ttf"
-            />
-        <LinearLayout
+            android:src="@drawable/ic_action_retweet"
+            android:background="@android:color/transparent"/>
+        <Space
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"/>
+        <ImageButton
+            android:id="@+id/ibLike"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:src="@drawable/ic_action_like"
+            android:background="@android:color/transparent"/>
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_action_reply"
-                android:id="@+id/ivReply"
-                android:tint="@color/colorTranslucentWhite"
-                />
-        </LinearLayout>
     </LinearLayout>
 
+</LinearLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/rel_time"
-        android:id="@+id/tvTime"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:textSize="14sp"
-        fontPath="fonts/Roboto-Regular.ttf"
-        />
-
-
-</RelativeLayout>

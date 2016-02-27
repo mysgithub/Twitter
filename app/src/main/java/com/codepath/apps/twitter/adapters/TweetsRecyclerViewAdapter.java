@@ -2,8 +2,6 @@ package com.codepath.apps.twitter.adapters;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +11,7 @@ import com.bumptech.glide.Glide;
 import com.codepath.apps.twitter.R;
 import com.codepath.apps.twitter.activities.ProfileActivity;
 import com.codepath.apps.twitter.fragments.ComposeTweetDialog;
+import com.codepath.apps.twitter.fragments.TweetsFragment;
 import com.codepath.apps.twitter.models.Tweet;
 import com.codepath.apps.twitter.utils.TwitterUtil;
 
@@ -25,9 +24,9 @@ public class TweetsRecyclerViewAdapter extends RecyclerView.Adapter<TimelineView
 
   protected ArrayList<Tweet> mTweets;
   protected Context mContext;
-  protected Fragment mFragment;
+  protected TweetsFragment mFragment;
 
-  public TweetsRecyclerViewAdapter(ArrayList<Tweet> tweets, Context context, Fragment fragment){
+  public TweetsRecyclerViewAdapter(ArrayList<Tweet> tweets, Context context, TweetsFragment fragment){
     mTweets = tweets;
     mContext = context;
     mFragment = fragment;
@@ -68,18 +67,51 @@ public class TweetsRecyclerViewAdapter extends RecyclerView.Adapter<TimelineView
         v.getContext().startActivity(intent);
       }
     });
-    // 4. Set Reply Image listener
-    viewHolder.ivReply.setTag(R.id.reply_tag_id, tweet);
 
-    viewHolder.ivReply.setOnClickListener(new View.OnClickListener() {
+    // 4. Set Reply Image listener
+    viewHolder.ibReply.setTag(R.id.reply_tag_id, tweet);
+    viewHolder.ibReply.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-        FragmentManager fragmentManager = mFragment.getFragmentManager();
         Tweet t = (Tweet) v.getTag(R.id.reply_tag_id);
         ComposeTweetDialog dialog = ComposeTweetDialog.newInstance(t);
-        dialog.show(fragmentManager, "compose");
+        dialog.show(mFragment.getFragmentManager(), "compose");
       }
     });
+    // 5. Set Retweet handler
+    viewHolder.ibRetweet.setTag(position);
+    if(tweet.isReTweeted()){
+      viewHolder.ibRetweet.setImageResource(R.drawable.ic_action_retweet_on);
+    }else{
+      viewHolder.ibRetweet.setImageResource(R.drawable.ic_action_retweet);
+    }
+    viewHolder.ibRetweet.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        int position = (int) v.getTag();
+        if (mFragment != null) {
+          mFragment.onRetweetUnretweet(position);
+        }
+      }
+    });
+
+    // 6. Favorite handler
+    viewHolder.ibLike.setTag(position);
+    if(tweet.isFavorite()){
+      viewHolder.ibLike.setImageResource(R.drawable.ic_action_like_on);
+    }else{
+      viewHolder.ibLike.setImageResource(R.drawable.ic_action_like);
+    }
+    viewHolder.ibLike.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        int position = (int) v.getTag();
+        if (mFragment != null) {
+          mFragment.onLikeUnlike(position);
+        }
+      }
+    });
+
 
   }
 

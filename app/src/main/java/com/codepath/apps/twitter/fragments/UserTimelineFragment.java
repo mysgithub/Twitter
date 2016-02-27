@@ -6,9 +6,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.codepath.apps.twitter.R;
-import com.codepath.apps.twitter.TwitterApplication;
 import com.codepath.apps.twitter.models.Tweet;
-import com.codepath.apps.twitter.network.TwitterClient;
 import com.codepath.apps.twitter.utils.TwitterUtil;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
@@ -23,14 +21,10 @@ import java.util.ArrayList;
  */
 public class UserTimelineFragment extends TweetsFragment {
 
-  private TwitterClient client;
 
   @Override
   public void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-
-    // Async Client
-    client = TwitterApplication.getRestClient();
 
     populateTimeline();
   }

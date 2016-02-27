@@ -6,9 +6,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.codepath.apps.twitter.R;
-import com.codepath.apps.twitter.TwitterApplication;
 import com.codepath.apps.twitter.models.Tweet;
-import com.codepath.apps.twitter.network.TwitterClient;
 import com.codepath.apps.twitter.utils.TwitterUtil;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
@@ -23,14 +21,10 @@ import java.util.ArrayList;
  */
 public class HomeTimelineFragment extends TweetsFragment {
 
-  private TwitterClient client;
 
   @Override
   public void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-
-    // Async Client
-    client = TwitterApplication.getRestClient();
 
     populateTimeline();
   }
@@ -78,10 +72,8 @@ public class HomeTimelineFragment extends TweetsFragment {
       int curSize = tweetsRecyclerViewAdapter.getItemCount();
       ArrayList<Tweet> arrayList = Tweet.fromJSONArray(jsonArray, Tweet.HOME_TIMELINE);
       tweets.addAll(arrayList);
-
       // Store in DB
       TwitterUtil.storeTweets(getContext(), arrayList, Tweet.HOME_TIMELINE);
-
       tweetsRecyclerViewAdapter.notifyItemRangeInserted(curSize, arrayList.size());
     }
 
@@ -91,4 +83,6 @@ public class HomeTimelineFragment extends TweetsFragment {
       Toast.makeText(getContext(), getString(R.string.no_internet), Toast.LENGTH_SHORT).show();
     }
   };
+
+
 }

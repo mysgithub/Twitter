@@ -8,19 +8,28 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.codepath.apps.twitter.R;
+import com.codepath.apps.twitter.TwitterApplication;
 import com.codepath.apps.twitter.activities.TweetDetailActivity;
 import com.codepath.apps.twitter.adapters.EndlessRecyclerViewScrollListener;
 import com.codepath.apps.twitter.adapters.TweetsRecyclerViewAdapter;
 import com.codepath.apps.twitter.interfaces.ITweetsFragment;
 import com.codepath.apps.twitter.models.Tweet;
+import com.codepath.apps.twitter.models.gson.ReTweetResponse;
+import com.codepath.apps.twitter.models.gson.favorites.FavoritesResponse;
+import com.codepath.apps.twitter.network.TwitterClient;
 import com.codepath.apps.twitter.utils.ItemClickSupport;
 import com.codepath.apps.twitter.utils.TwitterUtil;
+import com.loopj.android.http.JsonHttpResponseHandler;
+
+import org.apache.http.Header;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +48,7 @@ public abstract class TweetsFragment extends Fragment implements ITweetsFragment
   protected ArrayList<Tweet> tweets;
   protected TweetsRecyclerViewAdapter tweetsRecyclerViewAdapter;
   protected onProgressListener progressListener;
+  protected TwitterClient client;
 
 
   @Nullable
@@ -63,6 +73,9 @@ public abstract class TweetsFragment extends Fragment implements ITweetsFragment
   @Override
   public void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+
+    // Async Client
+    client = TwitterApplication.getRestClient();
 
     tweets = new ArrayList<>();
     tweetsRecyclerViewAdapter = new TweetsRecyclerViewAdapter(tweets, getContext(), this);
@@ -106,9 +119,9 @@ public abstract class TweetsFragment extends Fragment implements ITweetsFragment
           long maxId = tweets.get(tweets.size() - 1).getUid() - 1; // -1 so that duplicate will not appear..
           getTweets(maxId);
         } else {
-          if(getType() != null){
+          if (getType() != null) {
             getStoredTweets(page);
-          }else{
+          } else {
             Toast.makeText(getContext(), getString(R.string.no_internet), Toast.LENGTH_SHORT).show();
           }
         }
@@ -116,6 +129,70 @@ public abstract class TweetsFragment extends Fragment implements ITweetsFragment
     });
   }
 
+  public void onLikeUnlike(final int position) {
+    final Tweet tweet = tweets.get(position);
+    client.postLikeUnLike(new JsonHttpResponseHandler() {
+      @Override
+      public void onStart() {
+        Log.d("DEBUG", "Request: " + super.getRequestURI().toString());
+      }
+
+      @Override
+      public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+        Log.d("DEBUG", "Resposne: " + response.toString());
+
+        FavoritesResponse favoritesResponse = FavoritesResponse.parseJSON(response.toString());
+        Tweet tweet = tweets.get(position);
+        if (tweet.isFavorite()) {
+          tweet.setIsFavorite(false);
+        } else {
+          tweet.setIsFavorite(true);
+        }
+        tweet.setFavoriteCount(favoritesResponse.getUser().getFavouritesCount());
+        tweets.set(position, tweet);
+        tweetsRecyclerViewAdapter.notifyItemChanged(position);
+      }
+
+      @Override
+      public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+        Log.d("ERROR", errorResponse.toString());
+        Toast.makeText(getContext(), "Unable to complete your request!!!", Toast.LENGTH_SHORT).show();
+      }
+    }, tweet.getUid(), tweet.isFavorite());
+  }
+
+  public void onRetweetUnretweet(final int position) {
+    final Tweet tweet = tweets.get(position);
+
+    client.postRetweetUnretweet(new JsonHttpResponseHandler() {
+      @Override
+      public void onStart() {
+        Log.d("DEBUG", "Request: " + super.getRequestURI().toString());
+      }
+
+      @Override
+      public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+        Log.d("DEBUG", "Resposne: " + response.toString());
+
+        ReTweetResponse reTweetResponse = ReTweetResponse.parseJSON(response.toString());
+        Tweet tweet = tweets.get(position);
+        if (tweet.isReTweeted()) {
+          tweet.setIsReTweeted(false);
+        }else{
+          tweet.setIsReTweeted(true);
+        }
+        tweet.setReTweetCount(reTweetResponse.getRetweetCount());
+        tweets.set(position, tweet);
+        tweetsRecyclerViewAdapter.notifyItemChanged(position);
+      }
+
+      @Override
+      public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+        Log.d("ERROR", errorResponse.toString());
+        Toast.makeText(getContext(), getString(R.string.no_internet), Toast.LENGTH_SHORT).show();
+      }
+    }, tweet.getUid(), tweet.isReTweeted());
+  }
 
   /**
    * Get Stored Tweets
@@ -132,6 +209,8 @@ public abstract class TweetsFragment extends Fragment implements ITweetsFragment
       Toast.makeText(getContext(), getString(R.string.no_internet), Toast.LENGTH_SHORT).show();
     }
   }
+
+
 
   public void onNewTweetPost(Tweet tweet) {
     // Add Tweet in the beginning of list
@@ -168,9 +247,13 @@ public abstract class TweetsFragment extends Fragment implements ITweetsFragment
   };
 
 
+
+
   public interface onProgressListener {
     public void onProgressStart();
     public void onProgressStop();
   }
+
+
 
 }
