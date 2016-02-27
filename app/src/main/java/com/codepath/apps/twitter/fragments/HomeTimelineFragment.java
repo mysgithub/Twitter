@@ -3,7 +3,9 @@ package com.codepath.apps.twitter.fragments;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
+import android.widget.Toast;
 
+import com.codepath.apps.twitter.R;
 import com.codepath.apps.twitter.TwitterApplication;
 import com.codepath.apps.twitter.models.Tweet;
 import com.codepath.apps.twitter.network.TwitterClient;
@@ -34,6 +36,7 @@ public class HomeTimelineFragment extends TweetsFragment {
   }
 
   private void populateTimeline(){
+
     if(TwitterUtil.isInternetAvailable()){
       getTweets(0);
     }else {
@@ -44,6 +47,7 @@ public class HomeTimelineFragment extends TweetsFragment {
 
   @Override
   public void getTweets(long maxId) {
+    progressListener.onProgressStart();
     client.getHomeTimeline(mJsonHttpResponseHandler, maxId);
   }
 
@@ -62,6 +66,7 @@ public class HomeTimelineFragment extends TweetsFragment {
     public void onFinish() {
       super.onFinish();
       //Progress Bar
+      progressListener.onProgressStop();
       // Swipe Refreshing
       swipeContainer.setRefreshing(false);
     }
@@ -82,9 +87,8 @@ public class HomeTimelineFragment extends TweetsFragment {
 
     @Override
     public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-      Log.d("Failed2: ", "" + statusCode);
-      Log.d("Error : ", "" + throwable);
-      Log.d("Exception:", errorResponse.toString());
+      Log.d("ERROR", errorResponse.toString());
+      Toast.makeText(getContext(), getString(R.string.no_internet), Toast.LENGTH_SHORT).show();
     }
   };
 }

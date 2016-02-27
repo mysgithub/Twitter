@@ -21,6 +21,7 @@ import com.codepath.apps.twitter.R;
 import com.codepath.apps.twitter.adapters.TweetsPagerAdapter;
 import com.codepath.apps.twitter.fragments.ComposeTweetDialog;
 import com.codepath.apps.twitter.fragments.HomeTimelineFragment;
+import com.codepath.apps.twitter.fragments.TweetsFragment;
 import com.codepath.apps.twitter.interfaces.OnTweetPostListener;
 import com.codepath.apps.twitter.models.Tweet;
 import com.codepath.apps.twitter.utils.TwitterUtil;
@@ -30,12 +31,14 @@ import butterknife.ButterKnife;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 
-public class TimelineActivity extends AppCompatActivity implements OnTweetPostListener {
+public class TimelineActivity extends AppCompatActivity implements OnTweetPostListener, TweetsFragment.onProgressListener {
 
   @Bind(R.id.fab) FloatingActionButton fab;
   @Bind(R.id.viewpager) ViewPager vpPager;
   @Bind(R.id.tabs) PagerSlidingTabStrip tabStrip;
   @Bind(R.id.toolbar) Toolbar toolbar;
+
+  MenuItem miActionProgressItem;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +49,6 @@ public class TimelineActivity extends AppCompatActivity implements OnTweetPostLi
 
     // Toolbar
     setSupportActionBar(toolbar);
-
     // Change ActionBar Icon
     showTwitterIcon();
     // Floating Action Button
@@ -66,7 +68,15 @@ public class TimelineActivity extends AppCompatActivity implements OnTweetPostLi
   public boolean onCreateOptionsMenu(Menu menu) {
     MenuInflater inflater = getMenuInflater();
     inflater.inflate(R.menu.menu_timeline, menu);
+
     return super.onCreateOptionsMenu(menu);
+  }
+
+  @Override
+  public boolean onPrepareOptionsMenu(Menu menu) {
+    miActionProgressItem = menu.findItem(R.id.miActionProgress);
+    //ProgressBar v =  (ProgressBar) MenuItemCompat.getActionView(miActionProgressItem);
+    return super.onPrepareOptionsMenu(menu);
   }
 
   @Override
@@ -89,15 +99,28 @@ public class TimelineActivity extends AppCompatActivity implements OnTweetPostLi
 
   @Override
   public void onTweetPost(Tweet tweet) {
-
     // Don't know if this is correct or not..
     for (Fragment fragment : getSupportFragmentManager().getFragments()) {
       if(fragment instanceof HomeTimelineFragment){
         ((HomeTimelineFragment) fragment).onNewTweetPost(tweet);
       }
     }
-
   }
+
+  public void showProgressBar() {
+    // Show progress item
+    if(miActionProgressItem != null) {
+      miActionProgressItem.setVisible(true);
+    }
+  }
+
+  public void hideProgressBar() {
+    // Hide progress item
+    if(miActionProgressItem != null) {
+      miActionProgressItem.setVisible(false);
+    }
+  }
+
 
   private void showProfile() {
     Intent intent = new Intent(this, ProfileActivity.class);
@@ -135,5 +158,14 @@ public class TimelineActivity extends AppCompatActivity implements OnTweetPostLi
     });
   }
 
+  @Override
+  public void onProgressStart() {
+    showProgressBar();
+  }
+
+  @Override
+  public void onProgressStop() {
+    hideProgressBar();
+  }
 }
 

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -53,6 +54,7 @@ public class TweetDetailActivity extends AppCompatActivity {
   @Bind(R.id.play_video_texture) FensterVideoView textureVideoView;
   @Bind(R.id.play_video_controller) MediaFensterPlayerController playerController;
   @Bind(R.id.fmLayout) FrameLayout fmLayout;
+  @Bind(R.id.toolbar) Toolbar toolbar;
 
   private TwitterClient twitterClient;
   private Tweet tweet;
@@ -63,6 +65,8 @@ public class TweetDetailActivity extends AppCompatActivity {
     setContentView(R.layout.activity_tweet_detail);
     ButterKnife.bind(this);
 
+    // Toolbar
+    setSupportActionBar(toolbar);
     // Enable up icon
     getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 

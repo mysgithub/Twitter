@@ -1,173 +1,188 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:padding="10dp"
-    tools:ignore="MissingPrefix"
-    tools:context="com.codepath.apps.twitter.activities.TweetDetailActivity">
+    android:orientation="vertical">
+    <!-- Toolbar -->
+    <include layout="@layout/toolbar"/>
 
-    <com.makeramen.roundedimageview.RoundedImageView
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:id="@+id/ivProfileImage"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:background="#9bb9fb"
-        android:layout_marginRight="5dp"
-        android:layout_marginEnd="5dp"
-        android:adjustViewBounds="true"
-        app:riv_corner_radius="4dp"/>
-
-    <LinearLayout
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/ivProfileImage"
-        android:layout_toEndOf="@+id/ivProfileImage"
-        android:orientation="vertical"
-        >
+        android:layout_height="match_parent"
+        android:padding="10dp"
+        tools:context="com.codepath.apps.twitter.activities.TweetDetailActivity"
+        tools:ignore="MissingPrefix">
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/ivProfileImage"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginEnd="5dp"
+            android:layout_marginRight="5dp"
+            android:adjustViewBounds="true"
+            android:background="#9bb9fb"
+            app:riv_corner_radius="4dp"/>
+
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:layout_alignParentTop="true"
+            android:layout_toEndOf="@+id/ivProfileImage"
+            android:layout_toRightOf="@+id/ivProfileImage"
+            android:orientation="vertical"
             >
-            <TextView
+
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+
+                <TextView
+                    android:id="@+id/tvUserName"
+                    fontPath="fonts/Roboto-Bold.ttf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="New Text"
+                    android:textSize="16sp"
+                    />
+
+                <TextView
+                    android:id="@+id/tvScreenName"
+                    fontPath="fonts/Roboto-Medium.ttf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="5dp"
+                    android:paddingStart="5dp"
+                    android:text="Test"
+                    android:textSize="12sp"
+                    />
+            </LinearLayout>
+
+
+            <TextView
+                android:id="@+id/tvBody"
+                fontPath="fonts/Roboto-Regular.ttf"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:autoLink="all"
+                android:paddingTop="5dp"
                 android:text="New Text"
-                android:id="@+id/tvUserName"
-                android:textSize="16sp"
-                fontPath="fonts/Roboto-Bold.ttf"
+                android:textSize="14sp"
                 />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Test"
-                android:id="@+id/tvScreenName"
-                android:textSize="12sp"
-                android:paddingLeft="5dp"
-                android:paddingStart="5dp"
-                fontPath="fonts/Roboto-Medium.ttf"
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/ivMedia"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:adjustViewBounds="true"
+                android:background="#bbdefb"
+                android:maxHeight="200dp"
+                android:visibility="gone"
+                app:riv_corner_radius="4dp"
                 />
+
+            <FrameLayout android:id="@+id/fmLayout"
+                         xmlns:android="http://schemas.android.com/apk/res/android"
+                         xmlns:tools="http://schemas.android.com/tools"
+                         android:layout_width="match_parent"
+                         android:layout_height="200dp"
+                         android:background="@android:color/black"
+                         android:visibility="gone"
+                >
+
+                <com.malmstein.fenster.view.FensterVideoView
+                    android:id="@+id/play_video_texture"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fitsSystemWindows="true"
+                    android:keepScreenOn="true"/>
+
+                <com.malmstein.fenster.controller.MediaFensterPlayerController
+                    android:id="@+id/play_video_controller"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:animateLayoutChanges="true"
+                    android:fitsSystemWindows="true"/>
+
+            </FrameLayout>
+
         </LinearLayout>
-
-
 
         <TextView
+            android:id="@+id/tvTime"
+            fontPath="fonts/Roboto-Regular.ttf"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="New Text"
-            android:id="@+id/tvBody"
-            android:autoLink="all"
-            android:paddingTop="5dp"
-            android:layout_marginBottom="12dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:text="@string/rel_time"
             android:textSize="14sp"
-            fontPath="fonts/Roboto-Regular.ttf"
-            />
-        <com.makeramen.roundedimageview.RoundedImageView
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:maxHeight="200dp"
-            android:id="@+id/ivMedia"
-            android:background="#bbdefb"
-            android:adjustViewBounds="true"
-            app:riv_corner_radius="4dp"
-            android:visibility="gone"
             />
 
-        <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:tools="http://schemas.android.com/tools"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:background="@android:color/black"
-            android:id="@+id/fmLayout"
-            android:visibility="gone"
-            >
-
-            <com.malmstein.fenster.view.FensterVideoView
-                android:id="@+id/play_video_texture"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:keepScreenOn="true"
-                android:fitsSystemWindows="true" />
-
-            <com.malmstein.fenster.controller.MediaFensterPlayerController
-                android:id="@+id/play_video_controller"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:animateLayoutChanges="true"
-                android:fitsSystemWindows="true" />
-
-        </FrameLayout>
-
-    </LinearLayout>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/rel_time"
-        android:id="@+id/tvTime"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:textSize="14sp"
-        fontPath="fonts/Roboto-Regular.ttf"
-        />
-
-
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:orientation="vertical"
-        >
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/etTweetReply"
-            android:textSize="14sp"
-            fontPath="fonts/Roboto-Regular.ttf"
-            />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="end"
-            android:id="@+id/linearLayoutTweetButton"
-            android:visibility="gone"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:orientation="vertical"
             >
 
-            <TextView
-                android:layout_width="wrap_content"
+            <EditText
+                android:id="@+id/etTweetReply"
+                fontPath="fonts/Roboto-Regular.ttf"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="140"
-                android:id="@+id/tvCharCount"
-                android:gravity="center_vertical"
-                android:paddingRight="10dp"/>
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/btn_tweet"
-                android:id="@+id/btnTweet"
-                style="@style/TwitterButton"
+                android:textSize="14sp"
                 />
 
+            <LinearLayout
+                android:id="@+id/linearLayoutTweetButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:orientation="horizontal"
+                android:visibility="gone"
+                >
+
+                <TextView
+                    android:id="@+id/tvCharCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:paddingRight="10dp"
+                    android:text="140"/>
+
+                <Button
+                    android:id="@+id/btnTweet"
+                    style="@style/TwitterButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/btn_tweet"
+                    />
+
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
 
 
-</RelativeLayout>
+    </RelativeLayout>
+
+</LinearLayout>
+
+
+

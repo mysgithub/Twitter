@@ -37,6 +37,7 @@ public class MentionsTimelineFragment extends TweetsFragment{
 
   private void populateTimeline(){
     if(TwitterUtil.isInternetAvailable()){
+      progressListener.onProgressStart();
       getTweets(0);
     }else {
       // No Internet - doosh...
@@ -64,6 +65,7 @@ public class MentionsTimelineFragment extends TweetsFragment{
     public void onFinish() {
       super.onFinish();
       //Progress Bar
+      progressListener.onProgressStop();
       // Swipe Refreshing
       swipeContainer.setRefreshing(false);
     }

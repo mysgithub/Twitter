@@ -1,5 +1,6 @@
 package com.codepath.apps.twitter.fragments;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -37,6 +38,7 @@ public abstract class TweetsFragment extends Fragment implements ITweetsFragment
 
   protected ArrayList<Tweet> tweets;
   protected TweetsRecyclerViewAdapter tweetsRecyclerViewAdapter;
+  protected onProgressListener progressListener;
 
 
   @Nullable
@@ -66,7 +68,12 @@ public abstract class TweetsFragment extends Fragment implements ITweetsFragment
     tweetsRecyclerViewAdapter = new TweetsRecyclerViewAdapter(tweets, getContext());
   }
 
+  @Override
+  public void onAttach(Context context) {
+    super.onAttach(context);
 
+    progressListener = (onProgressListener) context;
+  }
 
   private void setupItemClick() {
     // Item click Listener
@@ -161,6 +168,9 @@ public abstract class TweetsFragment extends Fragment implements ITweetsFragment
   };
 
 
-
+  public interface onProgressListener {
+    public void onProgressStart();
+    public void onProgressStop();
+  }
 
 }
