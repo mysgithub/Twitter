@@ -2,22 +2,27 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
       xmlns:app="http://schemas.android.com/apk/res-auto"
       xmlns:tools="http://schemas.android.com/tools">
-    <item
-        android:id="@+id/miCompose"
-        android:icon="@drawable/ic_action_compose"
-        app:showAsAction="ifRoom"
-        android:title="@string/compose"/>
-    <item
-        android:id="@+id/miProfile"
-        android:icon="@drawable/ic_profile"
-        android:title="@string/profile"
-        app:showAsAction="ifRoom"/>
 
     <item
         android:id="@+id/miActionProgress"
-        android:orderInCategory="100"
+        android:orderInCategory="30"
         android:title="@string/loading"
         android:visible="false"
         app:actionLayout="@layout/action_view_progress"
         app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/miCompose"
+        android:icon="@drawable/ic_action_compose"
+        android:orderInCategory="40"
+        android:title="@string/compose"
+        app:showAsAction="ifRoom"/>
+    <item
+        android:id="@+id/miProfile"
+        android:icon="@drawable/ic_profile"
+        android:orderInCategory="50"
+        android:title="@string/profile"
+        app:showAsAction="ifRoom"/>
+
+
 </menu>

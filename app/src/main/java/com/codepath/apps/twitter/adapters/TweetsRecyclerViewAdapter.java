@@ -2,6 +2,8 @@ package com.codepath.apps.twitter.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +12,7 @@ import android.view.ViewGroup;
 import com.bumptech.glide.Glide;
 import com.codepath.apps.twitter.R;
 import com.codepath.apps.twitter.activities.ProfileActivity;
+import com.codepath.apps.twitter.fragments.ComposeTweetDialog;
 import com.codepath.apps.twitter.models.Tweet;
 import com.codepath.apps.twitter.utils.TwitterUtil;
 
@@ -20,12 +23,14 @@ import java.util.ArrayList;
  */
 public class TweetsRecyclerViewAdapter extends RecyclerView.Adapter<TimelineViewHolder>{
 
-  public ArrayList<Tweet> mTweets;
-  Context mContext;
+  protected ArrayList<Tweet> mTweets;
+  protected Context mContext;
+  protected Fragment mFragment;
 
-  public TweetsRecyclerViewAdapter(ArrayList<Tweet> tweets, Context context){
+  public TweetsRecyclerViewAdapter(ArrayList<Tweet> tweets, Context context, Fragment fragment){
     mTweets = tweets;
     mContext = context;
+    mFragment = fragment;
   }
 
   @Override
@@ -54,19 +59,28 @@ public class TweetsRecyclerViewAdapter extends RecyclerView.Adapter<TimelineView
     viewHolder.ivProfileImage.setTag(tweet.getUser().getScreenName());
     viewHolder.tvTime.setText(TwitterUtil.getFormattedRelativeTime(tweet.getCreatedAt()));
 
-    // 3. Set Profile Image listner
+    // 3. Set Profile Image listener
     viewHolder.ivProfileImage.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-        //ViewGroup parent = (ViewGroup) v.getParent();
-
-        //TextView screenN = (TextView) parent.findViewById(R.id.tvScreenName);
         Intent intent = new Intent(v.getContext(), ProfileActivity.class);
         intent.putExtra("screen_name", v.getTag().toString());
-
         v.getContext().startActivity(intent);
       }
     });
+    // 4. Set Reply Image listener
+    viewHolder.ivReply.setTag(R.id.reply_tag_id, tweet);
+
+    viewHolder.ivReply.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        FragmentManager fragmentManager = mFragment.getFragmentManager();
+        Tweet t = (Tweet) v.getTag(R.id.reply_tag_id);
+        ComposeTweetDialog dialog = ComposeTweetDialog.newInstance(t);
+        dialog.show(fragmentManager, "compose");
+      }
+    });
+
   }
 
 

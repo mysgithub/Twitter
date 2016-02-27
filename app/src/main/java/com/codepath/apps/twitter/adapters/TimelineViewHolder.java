@@ -19,6 +19,7 @@ public class TimelineViewHolder extends RecyclerView.ViewHolder {
   @Bind(R.id.tvBody) public TextView tvBody;
   @Bind(R.id.tvTime) public TextView tvTime;
   @Bind(R.id.tvScreenName) public TextView tvScreenName;
+  @Bind(R.id.ivReply) public ImageView ivReply;
 
   public TimelineViewHolder(final View itemView) {
     super(itemView);

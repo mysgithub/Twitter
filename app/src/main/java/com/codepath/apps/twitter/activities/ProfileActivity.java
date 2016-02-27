@@ -8,6 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -16,7 +18,10 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.codepath.apps.twitter.R;
 import com.codepath.apps.twitter.TwitterApplication;
+import com.codepath.apps.twitter.fragments.TweetsFragment;
 import com.codepath.apps.twitter.fragments.UserTimelineFragment;
+import com.codepath.apps.twitter.interfaces.OnTweetPostListener;
+import com.codepath.apps.twitter.models.Tweet;
 import com.codepath.apps.twitter.models.gson.TwitterProfileResponse;
 import com.codepath.apps.twitter.network.TwitterClient;
 import com.loopj.android.http.TextHttpResponseHandler;
@@ -27,7 +32,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-public class ProfileActivity extends AppCompatActivity {
+public class ProfileActivity extends AppCompatActivity implements OnTweetPostListener, TweetsFragment.onProgressListener {
 
   TwitterClient client;
   TwitterProfileResponse twitterProfileResponse;
@@ -40,6 +45,7 @@ public class ProfileActivity extends AppCompatActivity {
   @Bind(R.id.toolbar) Toolbar toolbar;
 
   private String screenName;
+  MenuItem miActionProgressItem;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +77,12 @@ public class ProfileActivity extends AppCompatActivity {
   @Override
   protected void attachBaseContext(Context newBase) {
     super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+  }
+
+  @Override
+  public boolean onPrepareOptionsMenu(Menu menu) {
+    miActionProgressItem = menu.findItem(R.id.miActionProgress);
+    return super.onPrepareOptionsMenu(menu);
   }
 
   private final TextHttpResponseHandler mProfileInfoResponseHandler = new TextHttpResponseHandler(){
@@ -135,4 +147,24 @@ public class ProfileActivity extends AppCompatActivity {
   }
 
 
+  @Override
+  public void onProgressStart() {
+    // Show progress item
+    if(miActionProgressItem != null) {
+      miActionProgressItem.setVisible(true);
+    }
+  }
+
+  @Override
+  public void onProgressStop() {
+    // Hide progress item
+    if(miActionProgressItem != null) {
+      miActionProgressItem.setVisible(false);
+    }
+  }
+
+  @Override
+  public void onTweetPost(Tweet tweet) {
+    // TODO: Do Nothing
+  }
 }

@@ -65,7 +65,7 @@ public abstract class TweetsFragment extends Fragment implements ITweetsFragment
     super.onCreate(savedInstanceState);
 
     tweets = new ArrayList<>();
-    tweetsRecyclerViewAdapter = new TweetsRecyclerViewAdapter(tweets, getContext());
+    tweetsRecyclerViewAdapter = new TweetsRecyclerViewAdapter(tweets, getContext(), this);
   }
 
   @Override

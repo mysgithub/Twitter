@@ -6,6 +6,6 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:indeterminate="true"
-    android:indeterminateTint="#FFFFFF"
+    android:indeterminateTint="#f7f5f5"
     android:indeterminateTintMode="src_in"
     />

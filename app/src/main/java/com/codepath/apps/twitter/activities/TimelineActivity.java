@@ -130,8 +130,7 @@ public class TimelineActivity extends AppCompatActivity implements OnTweetPostLi
   private void showComposeTweetDialog(){
       if(TwitterUtil.isInternetAvailable()) {
           FragmentManager fragmentManager = getSupportFragmentManager();
-          ComposeTweetDialog dialog = ComposeTweetDialog.newInstance();
-
+          ComposeTweetDialog dialog = ComposeTweetDialog.newInstance(null);
           dialog.show(fragmentManager, "compose");
       }else{
           Toast.makeText(TimelineActivity.this, "Unable to connect to twitter.com", Toast.LENGTH_LONG).show();

@@ -52,6 +52,9 @@ public class ComposeTweetDialog extends DialogFragment {
   private OnTweetPostListener tweetPostListener;
   private TwitterProfileResponse twitterProfileResponse;
   private Context mContext;
+  private String replyTo;
+  private Long replyToId;
+
 
 
   public ComposeTweetDialog(){}
@@ -76,8 +79,16 @@ public class ComposeTweetDialog extends DialogFragment {
     // Populate
     populateDailog();
 
-
     return view;
+  }
+
+  @Override
+  public void onCreate(@Nullable Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+
+    // Get Arguments if any
+    replyTo = getArguments().getString("replyToScreenName");
+    replyToId = getArguments().getLong("replyToId");
   }
 
   @Override
@@ -90,8 +101,18 @@ public class ComposeTweetDialog extends DialogFragment {
     }
   }
 
-  public static ComposeTweetDialog newInstance(){
-    return new ComposeTweetDialog();
+  public static ComposeTweetDialog newInstance(Tweet t){
+
+    ComposeTweetDialog dialog = new ComposeTweetDialog();
+    Bundle args = new Bundle();
+    if(t != null){
+      args.putString("replyToScreenName", t.getUser().getScreenName());
+      args.putLong("replyToId", t.getUid());
+    }
+
+    dialog.setArguments(args);
+
+    return dialog;
   }
 
   @OnClick(R.id.ibCancel)
@@ -102,7 +123,7 @@ public class ComposeTweetDialog extends DialogFragment {
   @OnClick(R.id.btnTweet)
   public void onTweetButtonClick(){
     // Post Tweet
-    twitterClient.postTweet(mPostTweetResponseHandler, etTweet.getText().toString());
+    twitterClient.postTweet(mPostTweetResponseHandler, etTweet.getText().toString(), replyToId);
   }
 
   public void populateDailog(){
@@ -113,6 +134,12 @@ public class ComposeTweetDialog extends DialogFragment {
     // Get User Info
     String screenName = null;
     twitterClient.getProfileInfo(screenName, mProfileInfoResponseHandler);
+
+    // in reply to
+    if(replyTo!=null){
+      etTweet.setText(String.format("@%s ", replyTo));
+      etTweet.setSelection(etTweet.getText().length());
+    }
   }
 
   public void setProfileData(){
