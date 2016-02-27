@@ -37,7 +37,6 @@ public class SearchTwitterFragment extends TweetsFragment {
 
   @Override
   public void getTweets(long maxId) {
-    showProgress();
     String query = getArguments().getString("query");
     client.getTweetsOnSearch(mJsonHttpResponseHandler, maxId, query);
   }
@@ -74,7 +73,7 @@ public class SearchTwitterFragment extends TweetsFragment {
     public void onFinish() {
       super.onFinish();
       //Progress Bar
-      hideProgress();
+
       // Swipe Refreshing
       swipeContainer.setRefreshing(false);
     }
