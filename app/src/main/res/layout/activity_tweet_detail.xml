@@ -33,6 +33,7 @@
             app:riv_corner_radius="4dp"/>
 
         <LinearLayout
+            android:id="@+id/llTop"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
@@ -93,13 +94,15 @@
                 app:riv_corner_radius="4dp"
                 />
 
-            <FrameLayout android:id="@+id/fmLayout"
-                         xmlns:android="http://schemas.android.com/apk/res/android"
-                         xmlns:tools="http://schemas.android.com/tools"
-                         android:layout_width="match_parent"
-                         android:layout_height="200dp"
-                         android:background="@android:color/black"
-                         android:visibility="gone"
+
+            <FrameLayout
+                android:id="@+id/fmLayout"
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:background="@android:color/black"
+                android:visibility="gone"
                 >
 
                 <com.malmstein.fenster.view.FensterVideoView
@@ -119,6 +122,7 @@
 
             </FrameLayout>
 
+
         </LinearLayout>
 
         <TextView
@@ -133,6 +137,48 @@
             android:textSize="14sp"
             />
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/llTop"
+            android:layout_marginLeft="50dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/ibReply"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:background="@android:color/transparent"
+                android:src="@drawable/ic_action_reply"/>
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+
+            <ImageButton
+                android:id="@+id/ibRetweet"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:src="@drawable/ic_action_retweet"/>
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+
+            <ImageButton
+                android:id="@+id/ibLike"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:src="@drawable/ic_action_like"/>
+
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"

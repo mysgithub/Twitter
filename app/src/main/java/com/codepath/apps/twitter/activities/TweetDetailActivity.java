@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -22,16 +23,20 @@ import com.codepath.apps.twitter.R;
 import com.codepath.apps.twitter.TwitterApplication;
 import com.codepath.apps.twitter.models.Tweet;
 import com.codepath.apps.twitter.models.User;
+import com.codepath.apps.twitter.models.gson.ReTweetResponse;
 import com.codepath.apps.twitter.models.gson.TweetPostResponse;
+import com.codepath.apps.twitter.models.gson.favorites.FavoritesResponse;
 import com.codepath.apps.twitter.models.gson.singletweet.TweetResponse;
 import com.codepath.apps.twitter.models.gson.singletweet.Variant;
 import com.codepath.apps.twitter.network.TwitterClient;
 import com.codepath.apps.twitter.utils.TwitterUtil;
+import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.TextHttpResponseHandler;
 import com.malmstein.fenster.controller.MediaFensterPlayerController;
 import com.malmstein.fenster.view.FensterVideoView;
 
 import org.apache.http.Header;
+import org.json.JSONObject;
 
 import java.util.List;
 
@@ -55,6 +60,10 @@ public class TweetDetailActivity extends AppCompatActivity {
   @Bind(R.id.play_video_controller) MediaFensterPlayerController playerController;
   @Bind(R.id.fmLayout) FrameLayout fmLayout;
   @Bind(R.id.toolbar) Toolbar toolbar;
+  @Bind(R.id.ibReply) public ImageButton ibReply;
+  @Bind(R.id.ibRetweet) public ImageButton ibRetweet;
+  @Bind(R.id.ibLike) public ImageButton ibLike;
+
 
   private TwitterClient twitterClient;
   private Tweet tweet;
@@ -124,6 +133,22 @@ public class TweetDetailActivity extends AppCompatActivity {
 
     // 3. Call Twitter for more details
     twitterClient.getTweet(mTweetDetailResponseHandler, tweet.getUid());
+
+    // 4. Listeners ReTweet
+    if (tweet.isReTweeted()) {
+      ibRetweet.setImageResource(R.drawable.ic_action_retweet_on);
+    }else{
+      tweet.setIsReTweeted(true);
+      ibRetweet.setImageResource(R.drawable.ic_action_retweet);
+    }
+    ibRetweet.setOnClickListener(mReTweetListener);
+    if(tweet.isFavorite()){
+      ibLike.setImageResource(R.drawable.ic_action_like_on);
+    }else{
+      ibLike.setImageResource(R.drawable.ic_action_like);
+    }
+    ibLike.setOnClickListener(mLikeListener);
+
     // TODO - Just Hard code TweetId for testing video
     /*long twid = 699676008585166848L;
     twitterClient.getTweet(mTweetDetailResponseHandler, twid);*/
@@ -275,6 +300,73 @@ public class TweetDetailActivity extends AppCompatActivity {
       Toast.makeText(TweetDetailActivity.this, "Sorry!! Unable to reply tweet at this time!", Toast.LENGTH_LONG).show();
     }
 
+  };
+
+  private final View.OnClickListener mReTweetListener = new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+      twitterClient.postRetweetUnretweet(new JsonHttpResponseHandler() {
+        @Override
+        public void onStart() {
+          Log.d("DEBUG", "Request: " + super.getRequestURI().toString());
+        }
+
+        @Override
+        public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+          Log.d("DEBUG", "Resposne: " + response.toString());
+
+          ReTweetResponse reTweetResponse = ReTweetResponse.parseJSON(response.toString());
+          if (tweet.isReTweeted()) {
+            tweet.setIsReTweeted(false);
+            ibRetweet.setImageResource(R.drawable.ic_action_retweet);
+          } else {
+            tweet.setIsReTweeted(true);
+            ibRetweet.setImageResource(R.drawable.ic_action_retweet_on);
+          }
+          tweet.setReTweetCount(reTweetResponse.getRetweetCount());
+          // Change UI
+
+        }
+
+        @Override
+        public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+          Log.d("ERROR", errorResponse.toString());
+          Toast.makeText(getApplicationContext(), getString(R.string.no_internet), Toast.LENGTH_SHORT).show();
+        }
+      }, tweet.getUid(), tweet.isReTweeted());
+    }
+  };
+  private final View.OnClickListener mLikeListener = new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+      twitterClient.postLikeUnLike(new JsonHttpResponseHandler() {
+        @Override
+        public void onStart() {
+          Log.d("DEBUG", "Request: " + super.getRequestURI().toString());
+        }
+
+        @Override
+        public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+          Log.d("DEBUG", "Resposne: " + response.toString());
+
+          FavoritesResponse favoritesResponse = FavoritesResponse.parseJSON(response.toString());
+          if (tweet.isFavorite()) {
+            tweet.setIsFavorite(false);
+            ibLike.setImageResource(R.drawable.ic_action_like);
+          }else{
+            tweet.setIsFavorite(true);
+            ibLike.setImageResource(R.drawable.ic_action_like_on);
+          }
+          tweet.setFavoriteCount(favoritesResponse.getUser().getFavouritesCount());
+        }
+
+        @Override
+        public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+          Log.d("ERROR", errorResponse.toString());
+          Toast.makeText(getApplicationContext(), getString(R.string.no_internet), Toast.LENGTH_SHORT).show();
+        }
+      }, tweet.getUid(), tweet.isFavorite());
+    }
   };
 }
 
