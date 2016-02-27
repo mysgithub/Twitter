@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.codepath.apps.twitter.R;
@@ -44,6 +45,8 @@ public abstract class TweetsFragment extends Fragment implements ITweetsFragment
 
   @Bind(R.id.swipeContainer) SwipeRefreshLayout swipeContainer;
   @Bind(R.id.rvTweets) RecyclerView rvTweets;
+
+  @Bind(R.id.miActionViewProgress) RelativeLayout miActionProgressItem;
 
   protected ArrayList<Tweet> tweets;
   protected TweetsRecyclerViewAdapter tweetsRecyclerViewAdapter;
@@ -94,7 +97,7 @@ public abstract class TweetsFragment extends Fragment implements ITweetsFragment
   }
 
 
-  public void setupSwipeRefresh(){
+  protected void setupSwipeRefresh(){
     // Setup refresh listener which triggers new data loading
     swipeContainer.setOnRefreshListener(mRefreshListener);
     // Configure the refreshing colors
@@ -255,5 +258,11 @@ public abstract class TweetsFragment extends Fragment implements ITweetsFragment
   }
 
 
+  public void showProgress(){
+    miActionProgressItem.setVisibility(View.VISIBLE);
+  }
 
+  public void hideProgress(){
+    miActionProgressItem.setVisibility(View.INVISIBLE);
+  }
 }

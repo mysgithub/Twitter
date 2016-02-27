@@ -1,5 +1,7 @@
 package com.codepath.apps.twitter.activities;
 
+import android.app.SearchManager;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +11,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -39,6 +42,7 @@ public class TimelineActivity extends AppCompatActivity implements OnTweetPostLi
   @Bind(R.id.toolbar) Toolbar toolbar;
 
   MenuItem miActionProgressItem;
+  String mQuery;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +73,42 @@ public class TimelineActivity extends AppCompatActivity implements OnTweetPostLi
     MenuInflater inflater = getMenuInflater();
     inflater.inflate(R.menu.menu_timeline, menu);
 
-    return super.onCreateOptionsMenu(menu);
+    // Handle Search
+    // Get the SearchView and set the searchable configuration
+    // Associate searchable configuration with the SearchView
+    SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+    SearchView searchView = (SearchView) menu.findItem(R.id.miSearch).getActionView();
+    ComponentName cn = new ComponentName(this, TimelineSearchActivity.class);
+    searchView.setSearchableInfo(searchManager.getSearchableInfo(cn));
+
+
+    //MenuItem searchItem = menu.findItem(R.id.miSearch);
+    //final SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+
+    /*searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+      @Override
+      public boolean onQueryTextSubmit(String query) {
+        //showProgressBar();
+        // Show Toast - if no connection
+        if (!TwitterUtil.isInternetAvailable()) {
+          Toast.makeText(getApplicationContext(), R.string.no_internet, Toast.LENGTH_SHORT).show();
+          return false;
+        }
+        mQuery = query;
+        // TODO: Lets do this in Fragment
+        Log.d("DEBUG", "I got the query - " +mQuery);
+
+        searchView.clearFocus(); // clear focus to avoid keyboard enter twice
+        return true;
+      }
+
+      @Override
+      public boolean onQueryTextChange(String newText) {
+        return false;
+      }
+    });*/
+
+    return true;
   }
 
   @Override
