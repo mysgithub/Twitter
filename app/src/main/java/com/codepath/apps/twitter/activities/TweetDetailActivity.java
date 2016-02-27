@@ -212,7 +212,7 @@ public class TweetDetailActivity extends AppCompatActivity {
     public void onClick(View v) {
       // Post to Twitter and Display Toast
       if(TwitterUtil.isInternetAvailable()){
-        twitterClient.postTweet(postResponseHandler, etTweetReply.getText().toString(), null);
+        twitterClient.postTweet(postResponseHandler, etTweetReply.getText().toString(), tweet.getUid());
       }else{
         Toast.makeText(TweetDetailActivity.this, "Unable to connect to twitter.com", Toast.LENGTH_LONG).show();
       }
