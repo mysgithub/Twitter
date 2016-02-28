@@ -2,10 +2,10 @@ package com.codepath.apps.twitter.activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.util.Log;
 import android.view.Menu;
@@ -42,7 +42,8 @@ public class ProfileActivity extends AppCompatActivity implements OnTweetPostLis
   @Bind(R.id.tvTagline) TextView tvTagline;
   @Bind(R.id.tvFollowers) TextView tvFollowers;
   @Bind(R.id.tvFollowing) TextView tvFollowing;
-  @Bind(R.id.toolbar) Toolbar toolbar;
+  @Bind(R.id.ivProfileBackground) ImageView ivProfileBackground;
+  @Bind(R.id.tvScreenName) TextView tvScreenName;
 
   private String screenName;
   MenuItem miActionProgressItem;
@@ -53,9 +54,6 @@ public class ProfileActivity extends AppCompatActivity implements OnTweetPostLis
     setContentView(R.layout.activity_profile);
 
     ButterKnife.bind(this);
-
-    // Toolbar
-    setSupportActionBar(toolbar);
 
     // Get screenName
     String screenName = getIntent().getStringExtra("screen_name");
@@ -96,9 +94,9 @@ public class ProfileActivity extends AppCompatActivity implements OnTweetPostLis
       Log.d("DEBUG", "Resposne: " + responseString);
       // Using Gson
       twitterProfileResponse = TwitterProfileResponse.parseJSON(responseString);
-      String formattedScreenName = String.format("@%s", twitterProfileResponse.getScreenName());
+      //String formattedScreenName = String.format("@%s", twitterProfileResponse.getScreenName());
 
-      getSupportActionBar().setTitle(formattedScreenName);
+      //getSupportActionBar().setTitle(formattedScreenName);
 
       // Populate
       populateProfileHeader(twitterProfileResponse);
@@ -112,7 +110,19 @@ public class ProfileActivity extends AppCompatActivity implements OnTweetPostLis
 
   private void populateProfileHeader(TwitterProfileResponse twitterProfileResponse) {
 
+    //int bgColor = Integer.parseInt(twitterProfileResponse.getProfileBackgroundColor());
+
+
+    //ivProfileBackground.setBackgroundColor();
+    if(twitterProfileResponse.getProfileUseBackgroundImage()){
+      // glide
+      Glide.with(getApplicationContext()).load(twitterProfileResponse.getProfileBackgroundImageUrl()).centerCrop().into(ivProfileBackground);
+    }else{
+      ivProfileBackground.setBackgroundColor(Color.parseColor("#" + twitterProfileResponse.getProfileBackgroundColor()));
+    }
+
     tvName.setText(twitterProfileResponse.getName());
+    tvScreenName.setText(String.format("@%s", twitterProfileResponse.getScreenName()));
     tvTagline.setText(twitterProfileResponse.getDescription());
 
 

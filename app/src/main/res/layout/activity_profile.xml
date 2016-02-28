@@ -6,8 +6,7 @@
               android:layout_height="match_parent"
               android:orientation="vertical">
 
-    <!-- Toolbar -->
-    <include layout="@layout/toolbar" />
+
 
     <RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -16,87 +15,96 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/colorWhite"
-        android:padding="10dp"
         tools:context="com.codepath.apps.twitter.activities.ProfileActivity"
         tools:ignore="MissingPrefix"
         >
-
-        <RelativeLayout
-            android:id="@+id/rlHeader"
+        <ImageView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="80dp"
+            android:id="@+id/ivProfileBackground"
+            android:adjustViewBounds="true"
+            />
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/ivProfileImage"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginLeft="20dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true">
+            android:layout_alignParentTop="true"
+            android:adjustViewBounds="true"
+            android:maxHeight="75dp"
+            app:riv_corner_radius="4dp"
+            />
 
-            <com.makeramen.roundedimageview.RoundedImageView
-                android:id="@+id/ivProfileImage"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:layout_width="75dp"
-                android:layout_height="75dp"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:adjustViewBounds="true"
-                android:maxHeight="75dp"
-                app:riv_corner_radius="4dp"
-                />
-
+        <LinearLayout
+            android:id="@+id/llScreenName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ivProfileImage"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="10dp"
+            android:orientation="vertical">
             <TextView
                 android:id="@+id/tvName"
-                fontPath="fonts/Roboto-Bold.ttf"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignTop="@+id/ivProfileImage"
-                android:layout_centerVertical="true"
-                android:layout_toEndOf="@+id/ivProfileImage"
-                android:layout_toRightOf="@+id/ivProfileImage"
-                android:gravity="center_vertical"
-                android:paddingLeft="10dp"
                 android:text="@string/name"
-                android:textSize="16sp"/>
-
+                style="@style/BoldNameStyle"
+                />
+            <TextView
+                android:id="@+id/tvScreenName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/screen_name"
+                style="@style/ScreenNameStyle"
+                />
             <TextView
                 android:id="@+id/tvTagline"
-                fontPath="fonts/Roboto-Regular.ttf"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/tvName"
-                android:layout_toEndOf="@+id/ivProfileImage"
-                android:layout_toRightOf="@+id/ivProfileImage"
-                android:paddingLeft="10dp"
+                android:layout_marginTop="10dp"
                 android:text="@string/tagline"
-                android:textSize="14sp"
+                style="@style/BodyStyle"
                 />
-
-        </RelativeLayout>
-
+        </LinearLayout>
         <LinearLayout
             android:id="@+id/llCounts"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/rlHeader"
+            android:layout_below="@+id/llScreenName"
             android:layout_marginBottom="10dp"
             android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="10dp"
             android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/tvFollowing"
-                fontPath="fonts/Roboto-Regular.ttf"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="20"
-                android:textSize="14sp"
+                android:text="  "
+                style="@style/BodyRegularStyle"
                 />
 
             <TextView
                 android:id="@+id/tvFollowers"
-                fontPath="fonts/Roboto-Regular.ttf"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
-                android:text="15"
-                android:textSize="14sp"
+                android:layout_marginStart="20dp"
+                android:text="  "
+                style="@style/BodyRegularStyle"
                 />
 
 
@@ -109,7 +117,13 @@
             android:layout_height="match_parent"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_below="@+id/llCounts">
+            android:layout_below="@+id/llCounts"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            >
         </FrameLayout>
     </RelativeLayout>
 

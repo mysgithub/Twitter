@@ -26,6 +26,10 @@
         <item name="android:textSize">14sp</item>
         <item name="fontPath">fonts/Roboto-Regular.ttf</item>
     </style>
+    <style name="BodyRegularStyle">
+        <item name="android:textSize">14sp</item>
+        <item name="fontPath">fonts/Roboto-Regular.ttf</item>
+    </style>
 
     <style name="EditTextStyle">
         <item name="fontPath">fonts/Roboto-Regular.ttf</item>
