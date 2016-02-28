@@ -25,5 +25,8 @@
     <string name="search">Search</string>
     <string name="search_hint">Search Twitter</string>
     <string name="message">Messages</string>
+    <string name="message_hint">Type your Message!</string>
+    <string name="name_hint">Name</string>
+    <string name="send">Send</string>
 
 </resources>
