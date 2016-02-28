@@ -1,6 +1,8 @@
 package com.codepath.apps.twitter.activities;
 
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -8,12 +10,14 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.codepath.apps.twitter.R;
 import com.codepath.apps.twitter.TwitterApplication;
 import com.codepath.apps.twitter.adapters.EndlessRecyclerViewScrollListener;
 import com.codepath.apps.twitter.adapters.MessageRecyclerViewAdapter;
+import com.codepath.apps.twitter.fragments.ComposeMessageDialog;
 import com.codepath.apps.twitter.models.Message;
 import com.codepath.apps.twitter.models.gson.message.DirectMessageResponse;
 import com.codepath.apps.twitter.network.TwitterClient;
@@ -46,6 +50,7 @@ public class MessageActivity extends AppCompatActivity {
     ButterKnife.bind(this);
     // Toolbar
     setSupportActionBar(toolbar);
+    setupToolbar();
 
     // Async Client
     client = TwitterApplication.getRestClient();
@@ -54,12 +59,44 @@ public class MessageActivity extends AppCompatActivity {
     messageArrayList = new ArrayList<>();
     adapter = new MessageRecyclerViewAdapter(messageArrayList, getApplicationContext());
 
-
     // Setup RecyclerView
     setupRecyclerView();
 
     //populate messages
     getDirectMessages();
+
+  }
+
+  @Override
+  public boolean onOptionsItemSelected(MenuItem item) {
+    int id = item.getItemId();
+    switch (id){
+      case R.id.miPostMessage:
+        showComposeMessageDialog();
+        return true;
+      default:
+        return super.onOptionsItemSelected(item);
+    }
+  }
+
+  private void showComposeMessageDialog(){
+    if(TwitterUtil.isInternetAvailable()) {
+      FragmentManager fragmentManager = getSupportFragmentManager();
+      ComposeMessageDialog dialog = ComposeMessageDialog.newInstance();
+      dialog.show(fragmentManager, "compose");
+    }else{
+      Toast.makeText(getApplicationContext(), "Unable to connect to twitter.com", Toast.LENGTH_LONG).show();
+    }
+  }
+
+  public void setupToolbar(){
+    ActionBar actionBar = getSupportActionBar();
+    if(actionBar != null){
+      actionBar.setDisplayShowHomeEnabled(false);
+      actionBar.setDisplayShowTitleEnabled(true);
+      actionBar.setTitle(R.string.message);
+      actionBar.setDisplayUseLogoEnabled(true);
+    }
   }
 
   @Override
