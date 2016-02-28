@@ -30,6 +30,7 @@
     <string name="message_hint">Type your Message!</string>
     <string name="name_hint">Name</string>
     <string name="send">Send</string>
+    <string name="unable_to_complete_request">Unable to complete your request!!!</string>
 
 
 </resources>

@@ -164,8 +164,8 @@ public abstract class TweetsFragment extends Fragment implements ITweetsFragment
 
       @Override
       public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-        Log.d("ERROR", errorResponse.toString());
-        Toast.makeText(getContext(), "Unable to complete your request!!!", Toast.LENGTH_SHORT).show();
+        Log.d("ERROR", getString(R.string.no_internet));
+        Toast.makeText(getContext(), getString(R.string.no_internet), Toast.LENGTH_SHORT).show();
       }
     }, tweet.getUid(), tweet.isFavorite());
   }
@@ -208,7 +208,7 @@ public abstract class TweetsFragment extends Fragment implements ITweetsFragment
 
       @Override
       public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-        Log.d("ERROR", errorResponse.toString());
+        Log.d("ERROR", getString(R.string.no_internet));
         Toast.makeText(getContext(), getString(R.string.no_internet), Toast.LENGTH_SHORT).show();
       }
     }, tweet.getUid(), tweet.isReTweeted());
