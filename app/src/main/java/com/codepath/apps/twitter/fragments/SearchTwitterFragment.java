@@ -38,7 +38,11 @@ public class SearchTwitterFragment extends TweetsFragment {
   @Override
   public void getTweets(long maxId) {
     String query = getArguments().getString("query");
-    client.getTweetsOnSearch(mJsonHttpResponseHandler, maxId, query);
+    if(TwitterUtil.isInternetAvailable()){
+      client.getTweetsOnSearch(mJsonHttpResponseHandler, maxId, query);
+    }else {
+      Toast.makeText(getContext(), getString(R.string.no_internet), Toast.LENGTH_SHORT).show();
+    }
   }
 
   @Override

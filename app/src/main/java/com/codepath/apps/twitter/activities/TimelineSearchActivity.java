@@ -53,10 +53,7 @@ public class TimelineSearchActivity extends AppCompatActivity implements OnTweet
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.flContainer, searchTwitterFragment);
         ft.commit();
-      }else{
-        // Get Fragment
       }
-
 
     }
 
