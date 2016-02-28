@@ -172,6 +172,10 @@ public class ComposeTweetDialog extends DialogFragment {
       tweet.setBody(tweetPostResponse.getText());
       tweet.setUid(tweetPostResponse.getId());
       tweet.setCreatedAt(TwitterUtil.getDateFromString(tweetPostResponse.getCreatedAt()));
+      tweet.setReTweetCount(0L);
+      tweet.setFavoriteCount(0L);
+      tweet.setIsReTweeted(false);
+      tweet.setIsFavorite(false);
       tweet.setUser(user);
 
       tweetPostListener.onTweetPost(tweet);
