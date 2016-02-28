@@ -42,6 +42,7 @@ The following **additional** features are implemented:
 
 * [X] Used ViewHolder Patter
 * [X] Implemented Background service for saving tweets into database 
+* [X] Added Profile background for user profile
 
 ## Video Walkthrough 
 
