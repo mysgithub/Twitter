@@ -131,6 +131,10 @@ public class TimelineActivity extends AppCompatActivity implements OnTweetPostLi
       case R.id.miProfile:
         showProfile();
         return true;
+      case R.id.miDirectMessage:
+        // Show Message Activity
+        Intent i = new Intent(getApplicationContext(),MessageActivity.class);
+        startActivity(i);
       default:
         return super.onOptionsItemSelected(item);
     }

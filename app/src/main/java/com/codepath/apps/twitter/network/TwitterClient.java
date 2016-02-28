@@ -220,11 +220,11 @@ public class TwitterClient extends OAuthBaseClient {
         getClient().get(apiUrl, params, handler);
     }
 
-    public void getMessages(AsyncHttpResponseHandler handler, Integer count)
+    public void getMessages(AsyncHttpResponseHandler handler)
     {
         String apiUrl = getApiUrl("direct_messages.json");
         RequestParams params = new RequestParams();
-        params.put("count",count);
+        params.put("count", 25);
 
         getClient().get(apiUrl, params, handler);
     }
