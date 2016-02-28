@@ -54,7 +54,9 @@ public class TweetsRecyclerViewAdapter extends RecyclerView.Adapter<TimelineView
     viewHolder.tvScreenName.setText(formattedScreenName);
     viewHolder.tvBody.setText(tweet.getBody());
     viewHolder.ivProfileImage.setImageResource(android.R.color.transparent); // clear out old image for recycled view
-    Glide.with(mContext).load(tweet.getUser().getProfileImageUrl()).fitCenter().into(viewHolder.ivProfileImage);
+    Glide.with(mContext).load(tweet.getUser().getProfileImageUrl()).fitCenter()
+        .placeholder(R.mipmap.ic_placeholder)
+        .into(viewHolder.ivProfileImage);
     viewHolder.ivProfileImage.setTag(tweet.getUser().getScreenName());
     viewHolder.tvTime.setText(TwitterUtil.getFormattedRelativeTime(tweet.getCreatedAt()));
     viewHolder.tvReTweetCount.setText(tweet.getReTweetCount().toString());

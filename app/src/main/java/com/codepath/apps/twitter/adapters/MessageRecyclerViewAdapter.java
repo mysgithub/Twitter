@@ -11,6 +11,7 @@ import com.bumptech.glide.Glide;
 import com.codepath.apps.twitter.R;
 import com.codepath.apps.twitter.activities.ProfileActivity;
 import com.codepath.apps.twitter.models.Message;
+import com.codepath.apps.twitter.utils.TwitterUtil;
 
 import java.util.ArrayList;
 
@@ -49,6 +50,7 @@ public class MessageRecyclerViewAdapter extends RecyclerView.Adapter<MessageView
     Glide.with(mContext).load(message.getUser().getProfileImageUrl()).fitCenter().into(viewHolder.ivProfileImage);
     viewHolder.ivProfileImage.setTag(message.getUser().getScreenName());
     viewHolder.tvMessage.setText(message.getMessage());
+    viewHolder.tvTime.setText(TwitterUtil.getFormattedRelativeTime(message.getCreatedAt()));
 
     // 3. Set Profile Image listner
     viewHolder.ivProfileImage.setOnClickListener(new View.OnClickListener() {

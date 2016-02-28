@@ -29,7 +29,9 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentStart="true"
         android:layout_marginTop="40dp"
-        android:hint="@string/name_hint"/>
+        android:hint="@string/name_hint"
+        style="@style/EditTextStyle"
+        />
 
     <EditText
         android:id="@+id/etMessage"
@@ -45,6 +47,8 @@
         android:layout_alignEnd="@+id/etName"
         android:minLines="5"
         android:gravity="top"
+        android:layout_marginTop="10dp"
+        style="@style/EditTextStyle"
         />
 
     <Button

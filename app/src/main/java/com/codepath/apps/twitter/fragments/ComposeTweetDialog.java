@@ -143,7 +143,9 @@ public class ComposeTweetDialog extends DialogFragment {
   }
 
   public void setProfileData(){
-    Glide.with(getContext()).load(twitterProfileResponse.getProfileImageUrl()).fitCenter().into(ivProfileImage);
+    Glide.with(getContext()).load(twitterProfileResponse.getProfileImageUrl()).fitCenter()
+        .placeholder(R.mipmap.ic_placeholder)
+        .into(ivProfileImage);
     tvName.setText(twitterProfileResponse.getName());
     String formatted = String.format("@%s", twitterProfileResponse.getScreenName());
     tvScreenName.setText(formatted);

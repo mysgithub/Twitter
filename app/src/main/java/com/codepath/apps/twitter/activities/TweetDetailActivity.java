@@ -121,7 +121,9 @@ public class TweetDetailActivity extends AppCompatActivity implements OnTweetPos
 
     tvBody.setText(tweet.getBody());
     ivProfileImage.setImageResource(android.R.color.transparent); // clear out old image for recycled view
-    Glide.with(getApplicationContext()).load(tweet.getUser().getProfileImageUrl()).into(ivProfileImage);
+    Glide.with(getApplicationContext()).load(tweet.getUser().getProfileImageUrl())
+        .placeholder(R.mipmap.ic_placeholder)
+        .into(ivProfileImage);
     tvTime.setText(TwitterUtil.getFormattedRelativeTime(tweet.getCreatedAt()));
     etTweetReply.setHint("Reply to " + tweet.getUser().getName());
 

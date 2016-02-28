@@ -40,9 +40,8 @@ public class TwitterUtil {
         if(words.length > 1){
           relativeDate = String.format("%s%s", words[0], words[1].charAt(0));
         }else{
-          relativeDate = words.toString();
+          relativeDate = words[0];
         }
-
       }
 
     } catch (Exception e) {

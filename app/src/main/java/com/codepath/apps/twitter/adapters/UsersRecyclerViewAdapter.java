@@ -46,7 +46,9 @@ public class UsersRecyclerViewAdapter extends RecyclerView.Adapter<UserViewHolde
     viewHolder.tvUserName.setText(user.getName());
     viewHolder.tvScreenName.setText(String.format("@%s", user.getScreenName()));
     viewHolder.ivProfileImage.setImageResource(android.R.color.transparent);
-    Glide.with(mContext).load(user.getProfileImageUrl()).fitCenter().into(viewHolder.ivProfileImage);
+    Glide.with(mContext).load(user.getProfileImageUrl()).fitCenter()
+        .placeholder(R.mipmap.ic_placeholder)
+        .into(viewHolder.ivProfileImage);
     viewHolder.ivProfileImage.setTag(user.getScreenName());
 
     // 3. Set Profile Image listner

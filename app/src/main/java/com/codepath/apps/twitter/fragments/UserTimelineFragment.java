@@ -21,7 +21,6 @@ import java.util.ArrayList;
  */
 public class UserTimelineFragment extends TweetsFragment {
 
-
   @Override
   public void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
