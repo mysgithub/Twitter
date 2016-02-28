@@ -1,7 +1,16 @@
 package com.codepath.apps.twitter.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.app.NavUtils;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.codepath.apps.twitter.R;
@@ -33,6 +42,21 @@ public class FollowingFragment extends FollowFragment {
     populate();
   }
 
+  @Nullable
+  @Override
+  public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+    // Set ToolBar
+    ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
+    if(actionBar != null){
+      actionBar.setDisplayShowTitleEnabled(true);
+      actionBar.setTitle(getString(R.string.title_following));
+      actionBar.setDisplayHomeAsUpEnabled(true);
+    }
+
+    return super.onCreateView(inflater, container, savedInstanceState);
+  }
+
   private void populate() {
     getUsers(screenName);
     Log.d("DEBUG", "We got it in following -" + screenName); // TODO: Remove this
@@ -46,6 +70,8 @@ public class FollowingFragment extends FollowFragment {
 
     return fragment;
   }
+
+
 
   @Override
   public void getUsers(String screenName) {

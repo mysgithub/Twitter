@@ -20,6 +20,8 @@
     <string name="tagline">Tagline</string>
     <string name="followers">FOLLOWERS</string>
     <string name="following">FOLLOWING</string>
+    <string name="title_following">Following</string>
+    <string name="title_followers">Followers</string>
     <string name="no_internet">Unable to connect to twitter.com</string>
     <string name="loading">Loading...</string>
     <string name="search">Search</string>
@@ -28,5 +30,6 @@
     <string name="message_hint">Type your Message!</string>
     <string name="name_hint">Name</string>
     <string name="send">Send</string>
+
 
 </resources>

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
@@ -37,7 +38,7 @@ public class TimelineSearchActivity extends AppCompatActivity implements OnTweet
     ButterKnife.bind(this);
     // Toolbar
     setSupportActionBar(toolbar);
-    showActionBar();
+    setupToolbar();
 
 
     // Get the intent, verify the action and get the query
@@ -62,6 +63,20 @@ public class TimelineSearchActivity extends AppCompatActivity implements OnTweet
   }
 
   @Override
+  public boolean onOptionsItemSelected(MenuItem item) {
+
+    switch (item.getItemId()) {
+      case android.R.id.home:
+        Intent intent = NavUtils.getParentActivityIntent(this);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        NavUtils.navigateUpTo(this, intent);
+        return true;
+    }
+
+    return super.onOptionsItemSelected(item);
+  }
+
+  @Override
   public boolean onCreateOptionsMenu(Menu menu) {
     MenuInflater inflater = getMenuInflater();
     inflater.inflate(R.menu.menu_search, menu);
@@ -74,18 +89,20 @@ public class TimelineSearchActivity extends AppCompatActivity implements OnTweet
     searchView.setIconifiedByDefault(false); // Expand
     searchView.setMaxWidth(Integer.MAX_VALUE);
     searchView.setQuery(searchQuery, false);
+    searchView.setFocusable(true);
 
     return super.onCreateOptionsMenu(menu);
   }
 
-  private void showActionBar(){
+  public void setupToolbar(){
     ActionBar actionBar = getSupportActionBar();
     if(actionBar != null){
-      actionBar.setDisplayShowHomeEnabled(false);
+      actionBar.setDisplayHomeAsUpEnabled(true);
       actionBar.setDisplayShowTitleEnabled(false);
-      actionBar.setDisplayUseLogoEnabled(false);
+      actionBar.setDisplayUseLogoEnabled(true);
     }
   }
+
 
   @Override
   public void onTweetPost(Tweet tweet) {

@@ -62,9 +62,17 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.codepath.apps.twitter.activities.TimelineActivity"/>
         </activity>
-        <activity android:name=".activities.ProfileActivity"/>
-        <activity android:name=".activities.FollowUserActivity"/>
-        <activity android:name=".activities.TimelineSearchActivity">
+        <activity
+            android:name=".activities.ProfileActivity"
+            />
+        <activity
+            android:name=".activities.FollowUserActivity"
+            android:parentActivityName=".activities.ProfileActivity"
+            />
+        <activity
+            android:name=".activities.TimelineSearchActivity"
+            android:parentActivityName=".activities.TimelineActivity"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH"/>
             </intent-filter>

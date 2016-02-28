@@ -2,7 +2,12 @@ package com.codepath.apps.twitter.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.codepath.apps.twitter.R;
@@ -33,6 +38,19 @@ public class FollowersFragment extends FollowFragment {
 
     // populate data
     populate();
+  }
+
+  @Nullable
+  @Override
+  public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    // Set ToolBar
+    ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
+    if(actionBar != null){
+      actionBar.setDisplayShowTitleEnabled(true);
+      actionBar.setTitle(getString(R.string.title_followers));
+      actionBar.setDisplayHomeAsUpEnabled(true);
+    }
+    return super.onCreateView(inflater, container, savedInstanceState);
   }
 
   public static FollowersFragment newInstance(String screenName){
