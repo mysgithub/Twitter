@@ -58,8 +58,12 @@ public class TweetsRecyclerViewAdapter extends RecyclerView.Adapter<TimelineView
         .into(viewHolder.ivProfileImage);
     viewHolder.ivProfileImage.setTag(tweet.getUser().getScreenName());
     viewHolder.tvTime.setText(TwitterUtil.getFormattedRelativeTime(tweet.getCreatedAt()));
-    viewHolder.tvReTweetCount.setText(tweet.getReTweetCount().toString());
-    viewHolder.tvLikeCount.setText(tweet.getFavoriteCount().toString());
+    if(tweet.getReTweetCount() > 0){
+      viewHolder.tvReTweetCount.setText(tweet.getReTweetCount().toString());
+    }
+    if(tweet.getFavoriteCount() > 0){
+      viewHolder.tvLikeCount.setText(tweet.getFavoriteCount().toString());
+    }
 
     // 3. Set Profile Image listener
     viewHolder.ivProfileImage.setOnClickListener(new View.OnClickListener() {

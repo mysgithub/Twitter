@@ -157,17 +157,6 @@ public class MessageActivity extends AppCompatActivity {
       messageArrayList.addAll(arrayList);
       adapter.notifyItemRangeInserted(curSize, arrayList.size());
 
-      Log.d("DEBUG", "size-" + arrayList.size());
-
-      /*UserListResponse userListResponse = UserListResponse.parseJSON(response.toString());
-
-      nextCursor = userListResponse.getNextCursor();
-      Log.d("DEBUG", "Next Cursor-" + userListResponse.getNextCursor() + " Prev Cursor-" + userListResponse.getPreviousCursor());
-
-      int curSize = adapter.getItemCount();
-      ArrayList<User> arrayList = userListResponse.getUsers();
-      mUserList.addAll(arrayList);
-      recyclerViewAdapter.notifyItemRangeInserted(curSize, arrayList.size());*/
     }
 
     @Override
