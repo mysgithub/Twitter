@@ -48,18 +48,27 @@ The following **additional** features are implemented:
 
 Here's a walkthrough of implemented user stories:
 
-<img src='http://i.imgur.com/link/to/your/gif/file.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='./twitter-app.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 ## Notes
 
-Describe any challenges encountered while building the app.
+- Fragment is challenging for how to split into activities or what time you should use fragment.
+- GSON image resize does not give aspect ratio image 
+- Video integrations are not smooth. After integration; video display is not smooth
 
 ## Open-source libraries used
 
 - [Android Async HTTP](https://github.com/loopj/android-async-http) - Simple asynchronous HTTP requests with JSON parsing
 - [Picasso](http://square.github.io/picasso/) - Image loading and caching library for Android
+- [Glide] (http://inthecheesefactory.com/blog/get-to-know-glide-recommended-by-google/en) - Image loading and caching library for Android
+- [Butterknife annotation library](http://guides.codepath.com/android/Reducing-View-Boilerplate-with-Butterknife) - View "Injection" library for Android
+- [GSON library](http://guides.codepath.com/android/Using-Android-Async-Http-Client#decoding-with-gson-library) - Streamline the parsing of JSON data
+- [ActiveAndroid](https://github.com/pardom/ActiveAndroid) - Simple ORM for persisting a local SQLite database on the Android device
+- [Android-ScalableVideoView](https://github.com/yqritc/Android-ScalableVideoView) - Scalable Video view
+- [Parceler](http://parceler.org/) - Serialize Java Objects between Contexts
+
 
 ## License
 
