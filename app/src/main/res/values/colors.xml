@@ -11,4 +11,6 @@
     <color name="colorPagerIndicator">#57ADEE</color>
     <color name="colorPagerUnderline">#efeeee</color>
     <color name="colorTranslucentWhite">#77FFFFFF</color>
+    <color name="colorTweetSubText">#9BABB7</color>
+    <color name="colorTweetBody">#3F4649</color>
 </resources>

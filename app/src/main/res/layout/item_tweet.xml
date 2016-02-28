@@ -5,7 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="10dp">
+    android:layout_marginStart="10dp"
+    android:layout_marginEnd="10dp"
+    android:layout_marginBottom="10dp"
+    android:paddingTop="10dp"
+
+
+    android:background="@drawable/border"
+    >
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -42,35 +49,32 @@
 
                 <TextView
                     android:id="@+id/tvUserName"
-                    fontPath="fonts/Roboto-Bold.ttf"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="New Text"
-                    android:textSize="16sp"
+                    android:text="@string/name"
+                    style="@style/BoldNameStyle"
                     />
 
                 <TextView
                     android:id="@+id/tvScreenName"
-                    fontPath="fonts/Roboto-Medium.ttf"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingLeft="5dp"
                     android:paddingStart="5dp"
                     android:text="@string/screen_name"
-                    android:textSize="12sp"
+                    style="@style/ScreenNameStyle"
                     />
             </LinearLayout>
 
 
             <com.codepath.apps.twitter.utils.LinkifiedTextView
                 android:id="@+id/tvBody"
-                fontPath="fonts/Roboto-Regular.ttf"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:autoLink="all"
                 android:paddingTop="5dp"
                 android:text="New Text"
-                android:textSize="14sp"
+                style="@style/BodyStyle"
                 />
 
         </LinearLayout>
@@ -78,14 +82,13 @@
 
         <TextView
             android:id="@+id/tvTime"
-            fontPath="fonts/Roboto-Regular.ttf"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
             android:text="@string/rel_time"
-            android:textSize="14sp"
+            style="@style/ScreenNameStyle"
             />
 
 
@@ -97,7 +100,8 @@
         android:orientation="horizontal"
         android:layout_marginLeft="50dp"
         android:layout_marginStart="50dp"
-        android:layout_marginTop="5dp">
+        android:layout_marginTop="5dp"
+        android:gravity="center_vertical">
 
         <ImageButton
             android:id="@+id/ibReply"
@@ -117,16 +121,30 @@
             android:layout_height="wrap_content"
             android:src="@drawable/ic_action_retweet"
             android:background="@android:color/transparent"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvReTweetCount"
+            style="@style/ScreenNameStyle"
+            android:text="2"/>
+
         <Space
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:layout_width="0dp"/>
+
         <ImageButton
             android:id="@+id/ibLike"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_action_like"
             android:background="@android:color/transparent"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvLikeCount"
+            style="@style/ScreenNameStyle"
+            android:text="2"/>
 
     </LinearLayout>
 

@@ -40,7 +40,7 @@ public class DirectMessageResponse {
         for(DirectMessageResponse messageResponse : arrayList){
             Message message = new Message();
             message.setMessage(messageResponse.getText());
-            message.setCreatedAt(TwitterUtil.getDateFromString(messageResponse.getCreatedAt()));
+            message.setCreatedAt(TwitterUtil.getDateFromString(messageResponse.getSender().getCreatedAt()));
             User u = new User();
             u.setProfileImageUrl(messageResponse.getSender().getProfileImageUrl());
             u.setUid(messageResponse.getSender().getId());

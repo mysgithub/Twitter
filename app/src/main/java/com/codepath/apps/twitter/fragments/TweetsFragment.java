@@ -145,10 +145,19 @@ public abstract class TweetsFragment extends Fragment implements ITweetsFragment
         Tweet tweet = tweets.get(position);
         if (tweet.isFavorite()) {
           tweet.setIsFavorite(false);
+          if(favoritesResponse.getUser().getFavouritesCount().equals(tweet.getFavoriteCount())){
+            tweet.setFavoriteCount(tweet.getFavoriteCount() - 1);
+          }else {
+            tweet.setFavoriteCount(favoritesResponse.getUser().getFavouritesCount());
+          }
         } else {
           tweet.setIsFavorite(true);
+          if(favoritesResponse.getUser().getFavouritesCount().equals(tweet.getFavoriteCount())){
+            tweet.setFavoriteCount(tweet.getFavoriteCount() + 1);
+          } else {
+            tweet.setFavoriteCount(favoritesResponse.getUser().getFavouritesCount());
+          }
         }
-        tweet.setFavoriteCount(favoritesResponse.getUser().getFavouritesCount());
         tweets.set(position, tweet);
         tweetsRecyclerViewAdapter.notifyItemChanged(position);
       }
@@ -178,10 +187,21 @@ public abstract class TweetsFragment extends Fragment implements ITweetsFragment
         Tweet tweet = tweets.get(position);
         if (tweet.isReTweeted()) {
           tweet.setIsReTweeted(false);
+          if(reTweetResponse.getRetweetCount().equals(tweet.getReTweetCount())){
+            tweet.setReTweetCount(tweet.getReTweetCount() - 1);
+          }else {
+            tweet.setReTweetCount(reTweetResponse.getRetweetCount());
+          }
         }else{
           tweet.setIsReTweeted(true);
+          if(reTweetResponse.getRetweetCount().equals(tweet.getReTweetCount())){
+            tweet.setReTweetCount(tweet.getReTweetCount() + 1);
+          }else {
+            tweet.setReTweetCount(reTweetResponse.getRetweetCount());
+          }
         }
-        tweet.setReTweetCount(reTweetResponse.getRetweetCount());
+
+
         tweets.set(position, tweet);
         tweetsRecyclerViewAdapter.notifyItemChanged(position);
       }

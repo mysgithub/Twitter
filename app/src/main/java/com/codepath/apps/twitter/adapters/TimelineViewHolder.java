@@ -22,7 +22,9 @@ public class TimelineViewHolder extends RecyclerView.ViewHolder {
   @Bind(R.id.tvScreenName) public TextView tvScreenName;
   @Bind(R.id.ibReply) public ImageButton ibReply;
   @Bind(R.id.ibRetweet) public ImageButton ibRetweet;
+  @Bind(R.id.tvReTweetCount) public TextView tvReTweetCount;
   @Bind(R.id.ibLike) public ImageButton ibLike;
+  @Bind(R.id.tvLikeCount) public TextView tvLikeCount;
 
   public TimelineViewHolder(final View itemView) {
     super(itemView);

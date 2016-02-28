@@ -12,5 +12,19 @@
     <style name="AppTheme" parent="AppBaseTheme">
     </style>
 
+    <style name="ScreenNameStyle">
+        <item name="android:textColor">@color/colorTweetSubText</item>
+        <item name="android:textSize">14sp</item>
+        <item name="fontPath">fonts/Roboto-Regular.ttf</item>
+    </style>
+    <style name="BoldNameStyle">
+        <item name="android:textSize">16sp</item>
+        <item name="fontPath">fonts/Roboto-Bold.ttf</item>
+    </style>
+    <style name="BodyStyle">
+        <item name="android:textColor">@color/colorTweetBody</item>
+        <item name="android:textSize">14sp</item>
+        <item name="fontPath">fonts/Roboto-Regular.ttf</item>
+    </style>
 
 </resources>

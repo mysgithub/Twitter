@@ -92,10 +92,15 @@ public class MessageActivity extends AppCompatActivity {
   public void setupToolbar(){
     ActionBar actionBar = getSupportActionBar();
     if(actionBar != null){
-      actionBar.setDisplayShowHomeEnabled(false);
+      // UP
+      //actionBar.setDisplayShowHomeEnabled(true); // is it selected
+      actionBar.setDisplayHomeAsUpEnabled(true);
+      // Title
       actionBar.setDisplayShowTitleEnabled(true);
       actionBar.setTitle(R.string.message);
+      // Logo
       actionBar.setDisplayUseLogoEnabled(true);
+      actionBar.setLogo(R.drawable.ic_twitter);
     }
   }
 

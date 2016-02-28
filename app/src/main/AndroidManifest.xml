@@ -46,6 +46,7 @@
                     android:scheme="oauth"/>
             </intent-filter>
         </activity>
+        <!-- TimelineActivity -->
         <activity
             android:name=".activities.TimelineActivity"
             android:label="@string/title_activity_timeline"
@@ -54,6 +55,7 @@
                 android:name="android.app.default_searchable"
                 android:value=".activities.TimelineSearchActivity"/>
         </activity>
+        <!-- Tweet Detail View -->
         <activity
             android:name=".activities.TweetDetailActivity"
             android:label="@string/title_activity_tweetdetail"
@@ -81,7 +83,10 @@
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable"/>
         </activity>
-        <activity android:name=".activities.MessageActivity">
+        <!-- Message -->
+        <activity android:name=".activities.MessageActivity"
+                  android:parentActivityName=".activities.TimelineActivity">
+
         </activity>
     </application>
 

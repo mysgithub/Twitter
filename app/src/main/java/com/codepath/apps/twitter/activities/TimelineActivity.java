@@ -183,7 +183,6 @@ public class TimelineActivity extends AppCompatActivity implements OnTweetPostLi
   private void showTwitterIcon(){
     ActionBar actionBar = getSupportActionBar();
     if(actionBar != null){
-      actionBar.setDisplayShowHomeEnabled(true);
       actionBar.setLogo(R.drawable.ic_twitter);
       actionBar.setDisplayUseLogoEnabled(true);
     }
